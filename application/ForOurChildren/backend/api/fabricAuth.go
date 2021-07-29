@@ -19,7 +19,7 @@ func GetAuth() *gateway.Contract {
 		os.Exit(1)
 	}
 
-	if !wallet.Exists("appUser3") {
+	if !wallet.Exists("appUser") {
 		err = checkWallet(wallet)
 		if err != nil {
 			fmt.Printf("Failed to populate wallet contents: %s\n", err)
@@ -40,7 +40,7 @@ func GetAuth() *gateway.Contract {
 
 	gw, err := gateway.Connect(
 		gateway.WithConfig(config.FromFile(filepath.Clean(ccpPath))),
-		gateway.WithIdentity(wallet, "appUser3"),
+		gateway.WithIdentity(wallet, "appUser"),
 	)
 
 	if err != nil {
@@ -102,22 +102,10 @@ func checkWallet(wallet *gateway.Wallet) error {
 
 	identity := gateway.NewX509Identity("Org1MSP", string(cert), string(key))
 
-	err = wallet.Put("appUser3", identity)
+	err = wallet.Put("appUser", identity)
 	if err != nil {
 		return err
 	}
 
 	return nil
-}
-
-func GetResults() []byte {
-	contract := GetAuth()
-
-	result, err := contract.EvaluateTransaction("queryAllChildren")
-	if err != nil {
-		fmt.Printf("Failed to evaluate transaction: $s\n", err)
-		os.Exit(1)
-	}
-
-	return result
 }

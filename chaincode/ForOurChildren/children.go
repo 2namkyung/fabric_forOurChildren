@@ -1,42 +1,49 @@
 package main
 
-import(
+import (
 	"encoding/json"
 	"fmt"
+	"log"
+
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
 // SmartContract provides functions for managing a children
-type SmartContract struct{
+type SmartContract struct {
 	contractapi.Contract
 }
 
 // Children
-type Children struct{
+type Children struct {
 	Name string `json:"name"`
-	Coin int `json:"coin"`
+	Coin int    `json:"coin"`
 }
 
-type QueryResult struct{
-	Key string `json:"Key"`
-	Record *Children
+type QueryResult struct {
+	Key    string    `json:"Key"`
+	Record *Children `json:"Record"`
 }
 
-func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error{
+type TxHistory struct {
+	TxID  string `json:"TxId"`
+	Value string `json:"Value"`
+}
+
+func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	children := []Children{
-		Children{Name:"Lee", Coin:3000000},
-		Children{Name:"Kim", Coin:3000000},
-		Children{Name:"Park", Coin:3000000},
-		Children{Name:"Choi", Coin:3000000},
-		Children{Name:"Jin", Coin:3000000},
-		Children{Name:"Hwang", Coin:3000000},
+		{Name: "Lee", Coin: 3000000},
+		{Name: "Kim", Coin: 3000000},
+		{Name: "Park", Coin: 3000000},
+		{Name: "Choi", Coin: 3000000},
+		{Name: "Jin", Coin: 3000000},
+		{Name: "Hwang", Coin: 3000000},
 	}
 
-	for _, child := range children{
+	for _, child := range children {
 		childAsBytes, _ := json.Marshal(child)
 		err := ctx.GetStub().PutState(child.Name, childAsBytes)
 
-		if err != nil{
+		if err != nil {
 			return fmt.Errorf("Failed to put to world state. %s", err.Error())
 		}
 	}
@@ -44,22 +51,22 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 	return nil
 }
 
-func(s *SmartContract) CreateCoin(ctx contractapi.TransactionContextInterface, name string, coin int) error{
-	child := Children{Name:name, Coin:coin}
+func (s *SmartContract) CreateCoin(ctx contractapi.TransactionContextInterface, name string, coin int) error {
+	child := Children{Name: name, Coin: coin}
 
 	childAsBytes, _ := json.Marshal(child)
 
 	return ctx.GetStub().PutState(name, childAsBytes)
 }
 
-func(s *SmartContract) QueryCoin(ctx contractapi.TransactionContextInterface, name string) (*Children, error){
+func (s *SmartContract) QueryCoin(ctx contractapi.TransactionContextInterface, name string) (*Children, error) {
 	childAsBytes, err := ctx.GetStub().GetState(name)
 
-	if err != nil{
+	if err != nil {
 		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
 	}
 
-	if childAsBytes == nil{
+	if childAsBytes == nil {
 		return nil, fmt.Errorf("%s does not exist", name)
 	}
 
@@ -69,7 +76,7 @@ func(s *SmartContract) QueryCoin(ctx contractapi.TransactionContextInterface, na
 
 }
 
-func(s *SmartContract) QueryAllChildren(ctx contractapi.TransactionContextInterface) ([]QueryResult, error){
+func (s *SmartContract) QueryAllChildren(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
 	startKey := ""
 	endKey := ""
 
@@ -82,31 +89,75 @@ func(s *SmartContract) QueryAllChildren(ctx contractapi.TransactionContextInterf
 
 	results := []QueryResult{}
 
-	for resultsIterator.HasNext(){
+	for resultsIterator.HasNext() {
 		queryResponse, err := resultsIterator.Next()
 
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 
 		child := new(Children)
 		_ = json.Unmarshal(queryResponse.Value, child)
-		QueryResult := QueryResult{Key:queryResponse.Key, Record:child}
+		QueryResult := QueryResult{Key: queryResponse.Key, Record: child}
 		results = append(results, QueryResult)
 	}
 
 	return results, nil
 }
 
-func main(){
+func (s *SmartContract) QueryTransactionHistroy(ctx contractapi.TransactionContextInterface, key string) []TxHistory {
+	history, err := ctx.GetStub().GetHistoryForKey(key)
+
+	if err != nil {
+		fmt.Println("history error : ", err)
+		log.Fatal(err)
+	}
+
+	var arr []TxHistory
+
+	for history.HasNext() {
+		modification, err := history.Next()
+		if err != nil {
+			fmt.Println(err.Error())
+			log.Fatal(err)
+		}
+		tx := TxHistory{TxID: modification.TxId, Value: string(modification.Value)}
+		arr = append(arr, tx)
+		fmt.Println("Returning information about", string(modification.Value))
+	}
+
+	return arr
+}
+
+func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterface, from, to string, coin int) error {
+	fromAsBytes, err := ctx.GetStub().GetState(from)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fromResult := Children{}
+	json.Unmarshal(fromAsBytes, &fromResult)
+	fromResult.Coin -= coin
+	fromMinus, _ := json.Marshal(fromResult)
+	ctx.GetStub().PutState(from, fromMinus)
+
+	toAsBytes, err := ctx.GetStub().GetState(to)
+	toResult := Children{}
+	json.Unmarshal(toAsBytes, &toResult)
+	toResult.Coin += coin
+	toPlus, _ := json.Marshal(toResult)
+	return ctx.GetStub().PutState(to, toPlus)
+}
+
+func main() {
 	chaincode, err := contractapi.NewChaincode(new(SmartContract))
 
-	if err != nil{
+	if err != nil {
 		fmt.Printf("Error create ForOurChildren chaincode: %s", err.Error())
 		return
 	}
 
-	if err := chaincode.Start(); err != nil{
+	if err := chaincode.Start(); err != nil {
 		fmt.Printf("Error starting ForOurChildren chaincode: %s", err.Error())
 	}
 }

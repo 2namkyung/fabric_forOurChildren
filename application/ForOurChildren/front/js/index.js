@@ -1,8 +1,13 @@
-const element = document.querySelector('#table_content')
-element.innerHTML = '<tr><td>이남경</td><td>1000</td></tr>'
-
 const elements = document.querySelector('#table_content')
-for(var i=0; i<10; i++){
-    var coin = i + 1000;
-    elements.innerHTML += '<tr><td>' + i + '</td><td>' + coin + '</td></tr>' 
-}
+
+fetch("http://localhost:4000/getAllInfo")
+    .then((response) => response.json())
+    .then(function(data){
+        for(var i=0; i<data.length; i++){
+            console.log(data[i].Record)
+            elements.innerHTML += '<tr><td>' + data[i].Key + '</td><td>' + data[i].Record.coin + '</td></tr>' 
+        }
+    });
+
+
+
