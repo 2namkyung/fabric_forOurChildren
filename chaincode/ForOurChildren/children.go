@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
@@ -17,6 +18,11 @@ type SmartContract struct {
 type Children struct {
 	Name string `json:"name"`
 	Coin int    `json:"coin"`
+}
+
+type Transfer struct {
+	Children
+	Time string `json:"time"`
 }
 
 type QueryResult struct {
@@ -121,6 +127,7 @@ func (s *SmartContract) QueryTransactionHistroy(ctx contractapi.TransactionConte
 			fmt.Println(err.Error())
 			log.Fatal(err)
 		}
+
 		tx := TxHistory{TxID: modification.TxId, Value: string(modification.Value)}
 		arr = append(arr, tx)
 		fmt.Println("Returning information about", string(modification.Value))
@@ -135,16 +142,20 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 		log.Fatal(err)
 	}
 
-	fromResult := Children{}
+	t := time.Now().UTC()
+
+	fromResult := Transfer{}
 	json.Unmarshal(fromAsBytes, &fromResult)
 	fromResult.Coin -= coin
+	fromResult.Time = t.Format("2006-01-02 15:04:05")
 	fromMinus, _ := json.Marshal(fromResult)
 	ctx.GetStub().PutState(from, fromMinus)
 
 	toAsBytes, err := ctx.GetStub().GetState(to)
-	toResult := Children{}
+	toResult := Transfer{}
 	json.Unmarshal(toAsBytes, &toResult)
 	toResult.Coin += coin
+	toResult.Time = t.Format("2006-01-02 15:04:05")
 	toPlus, _ := json.Marshal(toResult)
 	return ctx.GetStub().PutState(to, toPlus)
 }

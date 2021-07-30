@@ -29,7 +29,7 @@ async function main() {
         // Check to see if we've already enrolled the user.
         const userIdentity = await wallet.get('appUser');
         if (userIdentity) {
-            console.log('An identity for the user "appUser2" already exists in the wallet');
+            console.log('An identity for the user "appUser" already exists in the wallet');
             return;
         }
 
@@ -63,7 +63,7 @@ async function main() {
             mspId: 'Org1MSP',
             type: 'X.509',
         };
-        await wallet.put('appUser2', x509Identity);
+        await wallet.put('appUser', x509Identity);
         console.log('Successfully registered and enrolled admin user "appUser" and imported it into the wallet');
 
     } catch (error) {
