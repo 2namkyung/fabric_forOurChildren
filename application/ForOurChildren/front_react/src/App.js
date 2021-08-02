@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Index from './pages/index';
 import Transaction from './pages/transaction';
-import './css/index.css'
+import './css/index.css';
 // import './css/index.scss';
 
 function App() {

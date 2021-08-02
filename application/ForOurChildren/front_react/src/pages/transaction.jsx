@@ -28,10 +28,11 @@ class Transaction extends React.Component {
             for (let i = 0; i < data.length; i++) {
                 console.log(data[i].Value);
                 const obj = JSON.parse(data[i].Value);
+                if(obj.time==undefined) obj.time="초기금액";
                 result.push(
                     <tr key={i}>
                         <td>
-                            {i+1}
+                            {i + 1}
                         </td>
                         <td>
                             {obj.name}
@@ -55,12 +56,10 @@ class Transaction extends React.Component {
                 <div className="content">
                     <table>
                         <thead>
-                            <tr>
-                                <td className="tx">Tx</td>
-                                <td className="name">Name</td>
-                                <td>Coin</td>
-                                <td>Time</td>
-                            </tr>
+                            <th className="tx">Tx</th>
+                            <th className="name">Name</th>
+                            <th>Coin</th>
+                            <th>Time</th>
                         </thead>
                         <tbody id="table_content">
                             {resultList()}
