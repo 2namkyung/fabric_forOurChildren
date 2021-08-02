@@ -1,0 +1,49 @@
+.title{
+    width:1000px;
+    margin:auto;
+    display: flex;
+}
+
+.title a{
+    color:black;
+    text-decoration: none;
+    margin: auto;
+    cursor: pointer;
+}
+
+.title a:visited{
+    color:blue;
+}
+
+.content{
+    width:1000px;
+    height:2000px;
+    margin: auto;
+}
+
+table{
+    width:100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+}
+
+table #table_content{
+    text-align: center;
+}
+
+table th{
+    background-color: white;
+    border-bottom: 1px solid #444444;
+    padding: 2px;
+}
+table td{
+    height: 30px;
+}
+
+table tr:nth-child(even){
+    background-color:white;
+}
+
+table tr:nth-child(odd){
+    background-color: #dcdcdc;
+}

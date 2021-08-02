@@ -8,7 +8,7 @@
 
 
 // index
-const elements = document.querySelector('#table_content')
+const elements = document.querySelector('#table_content');
 
 fetch("http://localhost:4000/getAllInfo")
     .then((response) => response.json())

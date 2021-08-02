@@ -7,8 +7,9 @@
 
 // transaction
 const elements = document.querySelector('#table_content')
+console.log(window.location.pathname);
 
-fetch("http://localhost:4000/getTransaction/Joo")
+fetch("http://localhost:4000/" + window.location.pathname)
     .then((response) => response.json())
     .then(function(data){
         for(var i=0; i<data.length; i++){
