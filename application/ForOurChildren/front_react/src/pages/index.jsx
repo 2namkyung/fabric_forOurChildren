@@ -27,7 +27,7 @@ class Index extends React.Component {
         const data = this.state.data;
         const resultList = () => {
             const result = [];
-            for (let i=0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 console.log(data[i].Record);
                 result.push(
                     <tr key={i}>
@@ -51,8 +51,10 @@ class Index extends React.Component {
                 <div className="content">
                     <table>
                         <thead>
-                            <th>이름</th>
-                            <th>Coin</th>
+                            <tr>
+                                <th>이름</th>
+                                <th>Coin</th>
+                            </tr>
                         </thead>
                         <tbody id="table_content">
                             {resultList()}

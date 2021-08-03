@@ -21,8 +21,11 @@ type Children struct {
 }
 
 type Transfer struct {
-	Children
-	Time string `json:"time"`
+	Receiver string `json:"receiver"`
+	Sender   string `json:"sender"`
+	Coin     int    `json:"coin"`
+	Amount   int    `json:"amount"`
+	Time     string `json:"time"`
 }
 
 type QueryResult struct {
@@ -146,7 +149,10 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 
 	fromResult := Transfer{}
 	json.Unmarshal(fromAsBytes, &fromResult)
+	fromResult.Sender = from
+	fromResult.Receiver = to
 	fromResult.Coin -= coin
+	fromResult.Amount = coin
 	fromResult.Time = t.Format("2006-01-02 15:04:05")
 	fromMinus, _ := json.Marshal(fromResult)
 	ctx.GetStub().PutState(from, fromMinus)
@@ -154,7 +160,10 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 	toAsBytes, err := ctx.GetStub().GetState(to)
 	toResult := Transfer{}
 	json.Unmarshal(toAsBytes, &toResult)
+	toResult.Sender = from
+	toResult.Receiver = to
 	toResult.Coin += coin
+	toResult.Amount = coin
 	toResult.Time = t.Format("2006-01-02 15:04:05")
 	toPlus, _ := json.Marshal(toResult)
 	return ctx.GetStub().PutState(to, toPlus)
