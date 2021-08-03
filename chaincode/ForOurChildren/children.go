@@ -145,7 +145,7 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 		log.Fatal(err)
 	}
 
-	t := time.Now().UTC()
+	t := time.Now()
 
 	fromResult := Transfer{}
 	json.Unmarshal(fromAsBytes, &fromResult)

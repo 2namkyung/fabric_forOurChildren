@@ -32,7 +32,7 @@ class Index extends React.Component {
                 result.push(
                     <tr key={i}>
                         <td>
-                            <Link to={`/getTransaction/${data[i].Key}`}>{data[i].Key}</Link>
+                            <Link to={`/getTransaction/${data[i].Key}`} style={{textDecoration:'none', color:'black'}}>{data[i].Key}</Link>
                         </td>
                         <td>
                             {data[i].Record.coin}
@@ -44,10 +44,6 @@ class Index extends React.Component {
         }
         return (
             <div>
-                <div className="title">
-                    <h1>For Our Children</h1>
-                    <a href="/getTransaction/all">Transaction</a>
-                </div>
                 <div className="content">
                     <table>
                         <thead>

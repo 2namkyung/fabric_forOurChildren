@@ -64,9 +64,6 @@ class Transaction extends React.Component {
         }
         return (
             <div>
-                <div className="title">
-                    <h1>For Our Children</h1>
-                </div>
                 <div className="content">
                     <table>
                         <thead>
