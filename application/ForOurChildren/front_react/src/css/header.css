@@ -30,12 +30,12 @@
 
 .header .header_nav a{
     text-decoration: none;
-    color: black;
+    color: #46BEFF;
     font-size: 35px;
 }
 
 .header .header_nav a:hover{
-    color:green;
+    color:#41A541;
 }
 
 .header .header_nav .sub_menu{

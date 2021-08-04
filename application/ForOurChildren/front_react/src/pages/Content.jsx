@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import gsap from 'gsap';
 
 class Content extends React.Component {
 
@@ -50,7 +49,7 @@ class Content extends React.Component {
         }
         return (
             <div className="inner">
-                <div className="content fade-in">
+                <div className="content">
                     <table>
                         <thead>
                             <tr>
