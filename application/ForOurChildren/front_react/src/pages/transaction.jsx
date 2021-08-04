@@ -68,15 +68,15 @@ class Transaction extends React.Component {
                     <table>
                         <thead>
                             <tr>
-                                <th className="tx">Tx</th>
-                                <th className="name">받은 사람</th>
+                                <th>Tx</th>
+                                <th>받은 사람</th>
                                 <th>보낸 금액</th>
                                 <th>보낸 사람</th>
                                 <th>현재 잔액</th>
                                 <th>Time</th>
                             </tr>
                         </thead>
-                        <tbody id="table_content">
+                        <tbody>
                             {resultList()}
                         </tbody>
                     </table>

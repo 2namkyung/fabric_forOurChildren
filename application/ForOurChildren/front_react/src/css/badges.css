@@ -1,0 +1,25 @@
+.badges{
+    position: absolute;
+    top: 150px;
+    right: 12px;
+    z-index: 1;
+}
+
+.badges .badge{
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,.15);
+    cursor: pointer;
+}
+
+.badges .badge img{
+    width:75px;
+    height:75px;
+}
+
+.upper{
+    position: absolute;
+    top: 132px;
+    right: 12px
+}

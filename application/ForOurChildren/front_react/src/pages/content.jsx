@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import gsap from 'gsap';
 
-class Index extends React.Component {
+class Content extends React.Component {
 
     constructor(props) {
         super(props);
@@ -28,14 +29,19 @@ class Index extends React.Component {
         const resultList = () => {
             const result = [];
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i].Record);
+                // console.log(data[i].Record);
                 result.push(
                     <tr key={i}>
                         <td>
-                            <Link to={`/getTransaction/${data[i].Key}`} style={{textDecoration:'none', color:'black'}}>{data[i].Key}</Link>
+                            <div className="data">
+                                <Link to={`/getTransaction/${data[i].Key}`}>{data[i].Key}</Link>
+                            </div>
                         </td>
                         <td>
-                            {data[i].Record.coin}
+                            <div className="data">
+                                {data[i].Record.coin}
+                            </div>
+
                         </td>
                     </tr>
                 )
@@ -43,8 +49,8 @@ class Index extends React.Component {
             return result;
         }
         return (
-            <div>
-                <div className="content">
+            <div className="inner">
+                <div className="content fade-in">
                     <table>
                         <thead>
                             <tr>
@@ -52,7 +58,7 @@ class Index extends React.Component {
                                 <th>Coin</th>
                             </tr>
                         </thead>
-                        <tbody id="table_content">
+                        <tbody>
                             {resultList()}
                         </tbody>
                     </table>
@@ -62,4 +68,4 @@ class Index extends React.Component {
     }
 }
 
-export default Index;
+export default Content;

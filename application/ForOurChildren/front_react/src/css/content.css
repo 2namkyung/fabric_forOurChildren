@@ -1,0 +1,52 @@
+.content{
+    position:relative;
+    height:1500px;
+    left:0;
+    top:110px;
+}
+
+.content table{
+    width:100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    position: relative;
+}
+
+.content table th{
+    background-color: white;
+    border-bottom: 1px solid #444444;
+    padding: 2px;
+    font-size: 20px;
+}
+
+.content table td{
+    position: relative;
+    text-align: center;
+    font-size: 15px;
+    line-height: 2;
+    height: 30px;
+}
+
+.content table td .data{
+    width:100%;
+    position:absolute;
+}
+
+.content table td .data a{
+    text-decoration: none;
+    color:black;
+}
+
+.content table td .data a:hover{
+    color: #FFAAFF;
+}
+
+
+
+.content table tr:nth-child(even){
+    background-color:white;
+}
+
+.content table tr:nth-child(odd){
+    background-color: #dcdcdc;
+}

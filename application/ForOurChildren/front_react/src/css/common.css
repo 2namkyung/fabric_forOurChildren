@@ -1,0 +1,11 @@
+.inner{
+    width:1000px;
+    position:relative;
+    margin:0 auto;
+}
+
+#root{
+    font-weight: 400;
+    line-height: 1.4;
+    font-family : 'Nanum Gothic', sans-serif;
+}
