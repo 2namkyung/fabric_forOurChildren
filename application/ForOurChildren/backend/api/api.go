@@ -28,6 +28,12 @@ type TxHistory struct {
 	Value string `json:"Value"`
 }
 
+type Transfer struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Coin     string `json:"coin"`
+}
+
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
 	byteReult := GetAllInfo()
 
@@ -56,6 +62,22 @@ func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
 	// rd.HTML(w, http.StatusOK, "transaction", tx)
 }
 
+func transferMoney(w http.ResponseWriter, r *http.Request) {
+	var tx Transfer
+
+	err := json.NewDecoder(r.Body).Decode(&tx)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	from := tx.Sender
+	to := tx.Receiver
+	coin := tx.Coin
+	TransferCoin(from, to, coin)
+	rd.JSON(w, http.StatusOK, tx)
+}
+
 func NewHandler() http.Handler {
 	rd = render.New(render.Options{
 		Extensions: []string{".html"},
@@ -66,7 +88,7 @@ func NewHandler() http.Handler {
 
 	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
 	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET", "OPTIONS")
-
+	router.HandleFunc("/transfer", transferMoney).Methods("POST")
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))

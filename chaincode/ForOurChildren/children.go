@@ -1,12 +1,10 @@
 package main
 
 import (
-	"crypto/sha1"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
-	"time"
+	"strconv"
 
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -150,7 +148,7 @@ func (s *SmartContract) QueryTransactionHistroy(ctx contractapi.TransactionConte
 	return arr
 }
 
-func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterface, from, to string, coin int) error {
+func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterface, from, to, time, TxID, value string) error {
 	fromChild, err := s.QueryCoin(ctx, from)
 	if err != nil {
 		log.Fatal(err)
@@ -161,17 +159,17 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 		log.Fatal(err)
 	}
 
-	t := time.Now()
-
 	fmt.Println("fromChild.Name : ", fromChild.Name)
 	fmt.Println("toChild.Name : ", toChild.Name)
+
+	amount, _ := strconv.Atoi(value)
 
 	fromResult := Transfer{}
 	fromResult.Sender = from
 	fromResult.Receiver = to
-	fromResult.Coin = fromChild.Coin - coin
-	fromResult.Amount = coin
-	fromResult.Time = t.Format("2006-01-02 15:04:05")
+	fromResult.Coin = fromChild.Coin - amount
+	fromResult.Amount = amount
+	fromResult.Time = time
 	fromMinus, _ := json.Marshal(fromResult)
 	err = ctx.GetStub().PutState(from, fromMinus)
 
@@ -182,9 +180,9 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 	toResult := Transfer{}
 	toResult.Sender = from
 	toResult.Receiver = to
-	toResult.Coin = toChild.Coin + coin
-	toResult.Amount = coin
-	toResult.Time = t.Format("2006-01-02 15:04:05")
+	toResult.Coin = toChild.Coin + amount
+	toResult.Amount = amount
+	toResult.Time = time
 	toPlus, _ := json.Marshal(toResult)
 	err = ctx.GetStub().PutState(to, toPlus)
 
@@ -192,19 +190,13 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 		log.Fatal(err)
 	}
 
-	// Tx Key
-	h := sha1.New()
-	h.Write([]byte(t.String()))
-	hash := h.Sum(nil)
-	key := "TxLog_" + hex.EncodeToString(hash[:5])
-
 	Log := TransactionLog{}
 	Log.Sender = from
 	Log.Receiver = to
-	Log.Amount = coin
-	Log.Time = t.Format("2006-01-02 15:04:05")
+	Log.Amount = amount
+	Log.Time = time
 	LogResult, _ := json.Marshal(Log)
-	err = ctx.GetStub().PutState(key, LogResult)
+	err = ctx.GetStub().PutState(TxID, LogResult)
 	if err != nil {
 		log.Fatal(err)
 	}
