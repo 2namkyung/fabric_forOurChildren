@@ -40,13 +40,17 @@ async function main() {
         const contract = network.getContract('children');
 
         // Submit the specified transaction.
-	await contract.submitTransaction('TransferAsset', 'Joo', 'Lee', 50000);
-	await contract.submitTransaction('TransferAsset', 'Lee', 'Joo', 150000);
-	await contract.submitTransaction('TransferAsset', 'Park', 'Joo', 100000);
-	await contract.submitTransaction('TransferAsset', 'Hwang', 'Joo', 100000);
-	await contract.submitTransaction('TransferAsset', 'Jin', 'Joo', 100000);
-	await contract.submitTransaction('TransferAsset', 'Choi', 'Joo', 100000);
+	//await contract.submitTransaction('TransferAsset', 'Joo', 'Lee', 50000);
+	//await contract.submitTransaction('TransferAsset', 'Lee', 'Joo', 150000);
+	//await contract.submitTransaction('TransferAsset', 'Park', 'Joo', 200000);
+	//await contract.submitTransaction('TransferAsset', 'Hwang', 'Joo', 200000);
+	//await contract.submitTransaction('TransferAsset', 'Jin', 'Joo', 200000);
+	//await contract.submitTransaction('TransferAsset', 'Choi', 'Joo', 200000);
+	await contract.submitTransaction('TransferAsset', 'Joo', 'Tom', 200000);
         console.log('Transaction has been submitted');
+
+	// cant't use shim Interface function
+	// await contract.submitTransaction('invoke','Transfer', 'Joo', 'Koo', 200000);
 
         // Disconnect from the gateway.
         await gateway.disconnect();

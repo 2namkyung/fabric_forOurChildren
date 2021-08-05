@@ -41,6 +41,8 @@ async function main() {
 
         // Submit the specified transaction.
 	await contract.submitTransaction('InitLedger');
+	await contract.submitTransaction('CreateCoin', 'Jenny', 100000);
+	await contract.submitTransaction('CreateCoin', 'Tom', 100000);
 	await contract.submitTransaction('CreateCoin', 'Joo', 100000);
         console.log('Transaction has been submitted');
 

@@ -27,9 +27,9 @@ async function main() {
         console.log(`Wallet path: ${walletPath}`);
 
         // Check to see if we've already enrolled the user.
-        const userIdentity = await wallet.get('appUser');
+        const userIdentity = await wallet.get('appUser2');
         if (userIdentity) {
-            console.log('An identity for the user "appUser" already exists in the wallet');
+            console.log('An identity for the user "appUser2" already exists in the wallet');
             return;
         }
 
@@ -43,16 +43,16 @@ async function main() {
 
         // build a user object for authenticating with the CA
         const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
-        const adminUser = await provider.getUserContext(adminIdentity, 'admin');
+        const adminUser2 = await provider.getUserContext(adminIdentity, 'admin');
 
         // Register the user, enroll the user, and import the new identity into the wallet.
         const secret = await ca.register({
             affiliation: 'org1.department1',
-            enrollmentID: 'appUser',
+            enrollmentID: 'appUser2',
             role: 'client'
-        }, adminUser);
+        }, adminUser2);
         const enrollment = await ca.enroll({
-            enrollmentID: 'appUser',
+            enrollmentID: 'appUser2',
             enrollmentSecret: secret
         });
         const x509Identity = {
@@ -63,11 +63,11 @@ async function main() {
             mspId: 'Org1MSP',
             type: 'X.509',
         };
-        await wallet.put('appUser', x509Identity);
-        console.log('Successfully registered and enrolled admin user "appUser" and imported it into the wallet');
+        await wallet.put('appUser2', x509Identity);
+        console.log('Successfully registered and enrolled admin user "appUser2" and imported it into the wallet');
 
     } catch (error) {
-        console.error(`Failed to register user "appUser": ${error}`);
+        console.error(`Failed to register user "appUser2": ${error}`);
         process.exit(1);
     }
 }

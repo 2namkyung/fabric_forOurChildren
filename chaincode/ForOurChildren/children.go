@@ -1,11 +1,14 @@
 package main
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
+	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
 
@@ -24,6 +27,14 @@ type Transfer struct {
 	Receiver string `json:"receiver"`
 	Sender   string `json:"sender"`
 	Coin     int    `json:"coin"`
+	Amount   int    `json:"amount"`
+	Time     string `json:"time"`
+}
+
+// TransferLog
+type TransactionLog struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
 	Amount   int    `json:"amount"`
 	Time     string `json:"time"`
 }
@@ -140,33 +151,65 @@ func (s *SmartContract) QueryTransactionHistroy(ctx contractapi.TransactionConte
 }
 
 func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterface, from, to string, coin int) error {
-	fromAsBytes, err := ctx.GetStub().GetState(from)
+	fromChild, err := s.QueryCoin(ctx, from)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	toChild, err := s.QueryCoin(ctx, to)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	t := time.Now()
 
+	fmt.Println("fromChild.Name : ", fromChild.Name)
+	fmt.Println("toChild.Name : ", toChild.Name)
+
 	fromResult := Transfer{}
-	json.Unmarshal(fromAsBytes, &fromResult)
 	fromResult.Sender = from
 	fromResult.Receiver = to
-	fromResult.Coin -= coin
+	fromResult.Coin = fromChild.Coin - coin
 	fromResult.Amount = coin
 	fromResult.Time = t.Format("2006-01-02 15:04:05")
 	fromMinus, _ := json.Marshal(fromResult)
-	ctx.GetStub().PutState(from, fromMinus)
+	err = ctx.GetStub().PutState(from, fromMinus)
 
-	toAsBytes, err := ctx.GetStub().GetState(to)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	toResult := Transfer{}
-	json.Unmarshal(toAsBytes, &toResult)
 	toResult.Sender = from
 	toResult.Receiver = to
-	toResult.Coin += coin
+	toResult.Coin = toChild.Coin + coin
 	toResult.Amount = coin
 	toResult.Time = t.Format("2006-01-02 15:04:05")
 	toPlus, _ := json.Marshal(toResult)
-	return ctx.GetStub().PutState(to, toPlus)
+	err = ctx.GetStub().PutState(to, toPlus)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Tx Key
+	h := sha1.New()
+	h.Write([]byte(t.String()))
+	hash := h.Sum(nil)
+	key := "TxLog_" + hex.EncodeToString(hash[:5])
+
+	Log := TransactionLog{}
+	Log.Sender = from
+	Log.Receiver = to
+	Log.Amount = coin
+	Log.Time = t.Format("2006-01-02 15:04:05")
+	LogResult, _ := json.Marshal(Log)
+	err = ctx.GetStub().PutState(key, LogResult)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return nil
 }
 
 func main() {
@@ -180,4 +223,6 @@ func main() {
 	if err := chaincode.Start(); err != nil {
 		fmt.Printf("Error starting ForOurChildren chaincode: %s", err.Error())
 	}
+
+	err = shim.Start(new(Chaincode))
 }
