@@ -15,7 +15,7 @@ class Header extends React.Component {
                         <div className="sub_menu">
                             <ul>
                                 <li>
-                                    <Link to="/getTransaction/all" className="link_tx">Transaction</Link>
+                                    <Link to="/transactionLogAll" className="link_tx">Transaction</Link>
                                 </li>
                                 <li>
                                     <Link to="/login" className="link_login">Login</Link>

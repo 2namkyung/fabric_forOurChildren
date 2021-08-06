@@ -37,6 +37,18 @@ func GetAllInfo() []byte {
 	return result
 }
 
+func GetTxLogAll() []byte {
+	contract := GetAuth_Contract("children")
+
+	result, err := contract.EvaluateTransaction("QueryTransactionLogAll")
+	if err != nil {
+		fmt.Printf("Failed to evaluate transaction: $s\n", err)
+		os.Exit(1)
+	}
+
+	return result
+}
+
 func TransferCoin(args ...string) {
 	contract := GetAuth_Contract("children")
 	from := args[0]

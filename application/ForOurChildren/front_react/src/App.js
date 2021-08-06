@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Content from './pages/Content';
 import Transaction from './pages/Transaction';
+import TransactionAll from './pages/TransactionAll';
 import Badges from './pages/Badges';
 import Header from './pages/Header';
 import NotFound from './pages/Notfound';
@@ -29,7 +30,8 @@ function App() {
       <Badges/>
 
       <Switch>
-        <Route path="/getTransaction/:name" component={Transaction}/>
+        <Route path="/transactionLogAll" exact component={TransactionAll}/>
+        <Route path="/getTransaction/:name" exact component={Transaction}/>
         <Route path="/" exact component={Content} />
         <Route path={"*"} component={NotFound} />
       </Switch>

@@ -18,6 +18,18 @@ type KVRecord struct {
 	Record Children `json:"Record"`
 }
 
+type TransactionLog struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Amount   int    `json:"amount"`
+	Time     string `json:"time"`
+}
+
+type TxRecord struct {
+	Key   string          `json:"Key"`
+	TxLog *TransactionLog `json:"TransactionLog"`
+}
+
 type Children struct {
 	Name string `json:"name"`
 	Coin int    `json:"coin"`
@@ -62,6 +74,22 @@ func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
 	// rd.HTML(w, http.StatusOK, "transaction", tx)
 }
 
+func getTransactionLog(w http.ResponseWriter, r *http.Request) {
+	byteReult := GetTxLogAll()
+
+	TxRecord := []TxRecord{}
+	fmt.Println("---------------------")
+	fmt.Println(string(byteReult))
+	json.Unmarshal(byteReult, &TxRecord)
+	fmt.Println("transaction : ", TxRecord)
+	fmt.Println("---------------------")
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+
+	rd.JSON(w, http.StatusOK, TxRecord)
+}
+
 func transferMoney(w http.ResponseWriter, r *http.Request) {
 	var tx Transfer
 
@@ -79,16 +107,19 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 }
 
 func NewHandler() http.Handler {
-	rd = render.New(render.Options{
-		Extensions: []string{".html"},
-		Directory:  "./../front/html/",
-	})
+	// Using React
+	// rd = render.New(render.Options{
+	// 	Extensions: []string{".html"},
+	// 	Directory:  "./../front/html/",
+	// })
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
+	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET", "OPTIONS")
 	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET", "OPTIONS")
+	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
+
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))

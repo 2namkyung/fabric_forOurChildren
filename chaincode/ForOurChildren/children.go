@@ -36,6 +36,11 @@ type TransactionLog struct {
 	Time     string `json:"time"`
 }
 
+type QueryAllLog struct {
+	Key   string          `json:"Key"`
+	TxLog *TransactionLog `json:"TransactionLog"`
+}
+
 type QueryResult struct {
 	Key    string    `json:"Key"`
 	Record *Children `json:"Record"`
@@ -200,6 +205,37 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 	}
 
 	return nil
+}
+
+func (s *SmartContract) QueryTransactionLogAll(ctx contractapi.TransactionContextInterface) ([]QueryAllLog, error) {
+	startKey := "TxLog_"
+	endKey := ""
+
+	resultsIterator, err := ctx.GetStub().GetStateByRange(startKey, endKey)
+
+	if err != nil {
+		return nil, err
+	}
+	defer resultsIterator.Close()
+
+	results := []QueryAllLog{}
+
+	for resultsIterator.HasNext() {
+		queryResponse, err := resultsIterator.Next()
+
+		if err != nil {
+			return nil, err
+		}
+
+		TxLog := new(TransactionLog)
+		_ = json.Unmarshal(queryResponse.Value, TxLog)
+		QueryAllLog := QueryAllLog{Key: queryResponse.Key, TxLog: TxLog}
+		results = append(results, QueryAllLog)
+	}
+
+	fmt.Println(results)
+
+	return results, nil
 }
 
 func main() {
