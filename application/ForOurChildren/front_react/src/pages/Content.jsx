@@ -24,7 +24,7 @@ class Content extends React.Component {
     }
 
     render() {
-        const data = this.state.data;
+        const { data } = this.state;
         const resultList = () => {
             const result = [];
             for (let i = 0; i < data.length; i++) {

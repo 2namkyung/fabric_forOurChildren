@@ -11,7 +11,7 @@ import (
 	"github.com/hyperledger/fabric-sdk-go/pkg/gateway"
 )
 
-func GetAuth() *gateway.Contract {
+func GetAuth_Contract(ccName string) *gateway.Contract {
 	os.Setenv("DISCOVERY_AS_LOCALHOST", "true")
 	wallet, err := gateway.NewFileSystemWallet("wallet")
 	if err != nil {
@@ -56,7 +56,7 @@ func GetAuth() *gateway.Contract {
 		os.Exit(1)
 	}
 
-	contract := network.GetContract("children")
+	contract := network.GetContract(ccName)
 
 	return contract
 }

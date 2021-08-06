@@ -24,7 +24,7 @@ function App() {
     `;
   return (
     <BrowserRouter>
-      <GlobalStyles/>
+      <GlobalStyles/> {/*css init*/}
       <Header/>
       <Badges/>
 

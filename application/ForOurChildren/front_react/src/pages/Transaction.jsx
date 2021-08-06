@@ -23,7 +23,7 @@ class Transaction extends React.Component {
 
     render() {
         const data = this.state.data;
-        console.log(data);
+        // console.log(data);
         const resultList = () => {
             const result = [];
             for (let i = 0; i < data.length; i++) {

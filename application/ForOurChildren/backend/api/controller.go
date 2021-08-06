@@ -14,7 +14,7 @@ import (
 )
 
 func GetTransaction(name string) []byte {
-	contract := GetAuth()
+	contract := GetAuth_Contract("children_tx")
 
 	result, err := contract.EvaluateTransaction("QueryTransactionHistroy", name)
 	if err != nil {
@@ -26,7 +26,7 @@ func GetTransaction(name string) []byte {
 }
 
 func GetAllInfo() []byte {
-	contract := GetAuth()
+	contract := GetAuth_Contract("children_child")
 
 	result, err := contract.EvaluateTransaction("QueryAllChildren")
 	if err != nil {
@@ -38,7 +38,7 @@ func GetAllInfo() []byte {
 }
 
 func TransferCoin(args ...string) {
-	contract := GetAuth()
+	contract := GetAuth_Contract("children_tx")
 	from := args[0]
 	to := args[1]
 	time := time.Now().Format("2006-01-02 15:04:05")

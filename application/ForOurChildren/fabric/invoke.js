@@ -37,7 +37,7 @@ async function main() {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('children');
+        const contract = network.getContract('children_child');
 
         // Submit the specified transaction.
 	await contract.submitTransaction('InitLedger');
