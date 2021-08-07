@@ -84,9 +84,6 @@ func getTransactionLog(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("transaction : ", TxRecord)
 	fmt.Println("---------------------")
 
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "*")
-
 	rd.JSON(w, http.StatusOK, TxRecord)
 }
 
@@ -115,8 +112,8 @@ func NewHandler() http.Handler {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET", "OPTIONS")
 	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET", "OPTIONS")
+	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET", "OPTIONS")
 	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
 
@@ -128,5 +125,5 @@ func NewHandler() http.Handler {
 	n := negroni.Classic()
 	n.UseHandler(router)
 
-	return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)
+	return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)
 }

@@ -23,39 +23,25 @@ class TransactionAll extends React.Component {
 
     render() {
         const data = this.state.data;
-        console.log(data);
         const resultList = () => {
             const result = [];
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i].Value);
-                const obj = JSON.parse(data[i].Value);
-                if (obj.receiver == undefined){
-                    const url = window.location.pathname;
-                    const name = url.substr(url.lastIndexOf('/')+1);
-                    obj.receiver = name;
-                    obj.sender = "지원센터"
-                    obj.amount = obj.coin;
-                    obj.time = "최초지급일";
-                }
                     result.push(
                         <tr key={i}>
                             <td>
-                                {i + 1}
+                                {data[i].Key}
                             </td>
                             <td>
-                                {obj.receiver}
+                                {data[i].TransactionLog.receiver}
                             </td>
                             <td>
-                                {obj.amount}
+                                {data[i].TransactionLog.amount}
                             </td>
                             <td>
-                                {obj.sender}
+                                {data[i].TransactionLog.sender}
                             </td>
                             <td>
-                                {obj.coin}
-                            </td>
-                            <td>
-                                {obj.time}
+                                {data[i].TransactionLog.time}
                             </td>
                         </tr>
                     )
@@ -72,7 +58,6 @@ class TransactionAll extends React.Component {
                                 <th>받은 사람</th>
                                 <th>보낸 금액</th>
                                 <th>보낸 사람</th>
-                                <th>현재 잔액</th>
                                 <th>Time</th>
                             </tr>
                         </thead>
