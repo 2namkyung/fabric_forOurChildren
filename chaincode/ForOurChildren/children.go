@@ -100,7 +100,7 @@ func (s *SmartContract) QueryCoin(ctx contractapi.TransactionContextInterface, n
 
 func (s *SmartContract) QueryAllChildren(ctx contractapi.TransactionContextInterface) ([]QueryResult, error) {
 	startKey := ""
-	endKey := ""
+	endKey := "TxLog_"
 
 	resultsIterator, err := ctx.GetStub().GetStateByRange(startKey, endKey)
 

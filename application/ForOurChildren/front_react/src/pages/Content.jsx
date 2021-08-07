@@ -29,9 +29,9 @@ class Content extends React.Component {
             const result = [];
             for (let i = 0; i < data.length; i++) {
                 // console.log(data[i].Record);
-                if(data[i].Key.indexOf("TxLog")===0){
-                    continue;
-                }
+                // if(data[i].Key.indexOf("TxLog")===0){
+                //     continue;
+                // }
                 result.push(
                     <tr key={i}>
                         <td>
