@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class Content extends React.Component {
+class UserList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -70,4 +70,4 @@ class Content extends React.Component {
     }
 }
 
-export default Content;
+export default UserList;

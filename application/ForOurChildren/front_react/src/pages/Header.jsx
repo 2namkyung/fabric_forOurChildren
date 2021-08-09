@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Badges from './Badges';
 
 class Header extends React.Component {
 
@@ -15,6 +15,12 @@ class Header extends React.Component {
                         <div className="sub_menu">
                             <ul>
                                 <li>
+                                    <Link to="/" className="link_tx">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="/user" className="link_tx">Children</Link>
+                                </li>
+                                <li>
                                     <Link to="/transactionLogAll" className="link_tx">Transaction</Link>
                                 </li>
                                 <li>
@@ -23,8 +29,8 @@ class Header extends React.Component {
                             </ul>
                         </div>
                     </div>
+                    <Badges/>
                 </div>
-
             </div>
         );
     }

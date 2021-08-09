@@ -1,0 +1,21 @@
+.StoreList{
+    display: flex;
+    flex-flow: wrap;
+    align-content: flex-start;
+    width:1000px;
+    height:800px;
+    margin-top: 20px;
+}
+
+.StoreList .item{
+    width:180px;
+    height:180px;
+    text-align: center;
+    margin-right:10px;
+    margin-bottom:20px;
+}
+
+.StoreList img{ 
+    width:150px;
+    height:150px;
+}

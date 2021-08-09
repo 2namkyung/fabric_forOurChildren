@@ -1,0 +1,15 @@
+.index{
+    width:1000px;
+    height:1200px;
+    position: relative;
+    top: 110px;
+    left: 0;
+    text-align: center;
+}
+
+.index span{
+    color:aqua;
+    font-size: 40px;
+}
+
+
