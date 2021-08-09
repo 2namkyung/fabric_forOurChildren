@@ -10,7 +10,6 @@ class Badges extends React.Component {
         super(props);
         this.badge = React.createRef();
         this.upper = React.createRef();
-
     }
 
     componentDidMount() {

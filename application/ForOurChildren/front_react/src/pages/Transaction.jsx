@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 
 class Transaction extends React.Component {
     constructor(props) {

@@ -12,4 +12,66 @@
     font-size: 40px;
 }
 
+.promotion{
+    height:200px;
+}
+
+.promotion .notice{
+    position: relative;
+    background-color: #f6f5f0;
+    display: flex;
+    height:40px;
+}
+
+.promotion .notice_left{
+    width:60%;
+    height:100%;
+    background-color:#333;
+    display:flex;
+    align-items: center;    
+    overflow: hidden;
+}
+
+.promotion .notice_left h2{
+    color:#fff;
+    font-size: 17px;
+    font-weight: 700;
+    margin-left: 50px;
+    margin-right: 20px;   
+}
+
+.promotion .notice_left .swiper-container{
+    height:100%;
+    flex-grow:1;
+}
+
+.promotion .notice_left .swiper-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff; 
+}
+
+.promotion .notice_right{
+    width:40%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    align-content: center;
+}
+
+.promotion .notice_right h2{
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.promotion .notice_right .plus{
+    margin-left: 10px;
+}
+
+.promotion .awards{
+    height:175px;
+}
+
 
