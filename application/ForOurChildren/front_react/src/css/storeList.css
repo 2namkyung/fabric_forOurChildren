@@ -2,16 +2,24 @@
     display: flex;
     flex-flow: wrap;
     align-content: flex-start;
-    width:1000px;
+    width:690px;
     height:800px;
     margin-top: 20px;
+    overflow: hidden;
+}
+
+.StoreList .list__header{
+    width:690px;
+    color: aqua;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .StoreList .item{
-    width:180px;
-    height:180px;
+    width:345px;
+    height:200px;
     text-align: center;
-    margin-right:10px;
     margin-bottom:20px;
 }
 
@@ -19,3 +27,96 @@
     width:150px;
     height:150px;
 }
+
+.StoreList .desc{ 
+    font-size:12px;
+}
+
+.StoreList .input{ 
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.StoreList .plus{
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+/* -----------장바구니---------- */
+.purchaseList{
+    height:400px;
+}
+
+.purchaseList .body{
+    position: relative;
+    height:80%;
+}
+
+.purchaseList .empty{
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.purchaseList .body .item{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height:30px;
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.purchaseList .body .item .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100px;
+    left:0;
+    top:0;
+    position: absolute;
+    height:100%;
+}
+
+.purchaseList .body .item p{
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.purchaseList .body .item .action{
+    width:70px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left:100px;
+    height:100%;
+}
+
+.purchaseList .body .item .action .delete{
+    width:30px;
+    height:100%;
+}
+
+.purchaseList .total{
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.purchaseList .total .price{
+    margin-left: 10px;
+}
+
+.deleteAll{
+    margin-left: 10px;
+}
+
+

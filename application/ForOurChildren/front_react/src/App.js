@@ -19,6 +19,7 @@ import './css/footer.css';
 import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
+import StoreListStateProvider from './providers/StoreListStateProvider';
 
 // import './css/index.scss';
 
@@ -28,16 +29,18 @@ function App() {
     `;
   return (
     <BrowserRouter>
-      <GlobalStyles/> {/*css init*/}
-      <Header/>
-      <Switch>
-        <Route path="/transactionLogAll" exact component={TransactionAll}/>
-        <Route path="/getTransaction/:name" exact component={Transaction}/>
-        <Route path="/user" exact component={UserList} />
-        <Route path="/" exact component={Home}/>
-        <Route path={"*"} component={NotFound} />
-      </Switch>
-      <Footer/>
+      <GlobalStyles /> {/*css init*/}
+      <StoreListStateProvider>
+        <Header />
+        <Switch>
+          <Route path="/transactionLogAll" exact component={TransactionAll} />
+          <Route path="/getTransaction/:name" exact component={Transaction} />
+          <Route path="/user" exact component={UserList} />
+          <Route path="/" exact component={Home} />
+          <Route path={"*"} component={NotFound} />
+        </Switch>
+        <Footer />
+      </StoreListStateProvider>
     </BrowserRouter>
   );
 }
