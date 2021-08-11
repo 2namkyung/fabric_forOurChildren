@@ -35,19 +35,3 @@
     z-index: 11;
 }
 
-/* ---------purchase Badges------------ */
-.purchaseList{
-    background-color: #f6f5f0;
-    position: absolute;
-    width:170px;
-    height:400px;
-    top: 150px;
-    right: 100px;
-    z-index: 1;
-}
-
-.purchaseList .item__title{
-    text-align: center;
-    font-size: 20px;
-    color:aqua;
-}

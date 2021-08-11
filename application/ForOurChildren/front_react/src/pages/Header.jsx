@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Purchase from '../components/Purchase';
 import Badges from './Badges';
 
 class Header extends React.Component {
@@ -31,7 +30,6 @@ class Header extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Purchase/>
                 <Badges/>
             </div>
         );

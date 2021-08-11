@@ -8,6 +8,7 @@ import useActions from "../hooks/useActions";
 
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { useRef } from "react";
 
 export default function Purchase() {
 
@@ -15,7 +16,13 @@ export default function Purchase() {
     const storeLists = useStoreLists();
     const { remove, removeAll } = useActions();
 
-    const purchaseBadge = React.createRef();
+    const purchaseBadge = useRef(null);
+
+    useEffect(() => {
+        window.addEventListener('scroll', hiddenPurchanse);
+
+        return () => window.removeEventListener('scroll', hiddenPurchanse);
+    }, [purchaseBadge]);
 
     const totalPrice = useMemo(() => {
         return orders.map(order => {
@@ -25,23 +32,23 @@ export default function Purchase() {
         }).reduce((l, r) => l + r, 0);
     }, [orders, storeLists]);
 
-    useEffect(() => {
-        window.addEventListener('scroll', throttle(hiddenPurchanse))
-    });
 
-    function hiddenPurchanse() {
-        if (window.scrollY > 400) {
-            gsap.to(purchaseBadge.current, 0.6, {
-                opacity: 0,
-                display: 'none'
-            })
-        } else {
-            gsap.to(purchaseBadge.current, 0.6, {
-                opacity: 1,
-                display: 'block'
-            })
-        }
-    }
+    const hiddenPurchanse = useMemo(
+        () =>
+            throttle(() => {
+                if (window.scrollY > 350) {
+                    gsap.to(purchaseBadge.current,{duration: 0.6,
+                        opacity: 0,
+                        display: 'none'
+                    })
+                } else {
+                    gsap.to(purchaseBadge.current,{duration: 0.6, 
+                        opacity: 1,
+                        display: 'block'
+                    })
+                }
+            }, 300),
+    );
 
     if (orders.length === 0) {
         return (
@@ -75,19 +82,19 @@ export default function Purchase() {
                             </div>
                             <div className="action">
                                 <p>$ {storeList.price * order.quantity}</p>
-                                <ClearIcon className="delete" onClick={click}/>
+                                <ClearIcon className="delete" onClick={click} />
                             </div>
                         </div>
                     )
                 })}
             </div>
-            <hr color="black"/>
+            <hr color="black" />
             <div className="total">
                 <h2>Total</h2>
                 <div className="price">$ {totalPrice}</div>
-                <DeleteForeverIcon className="deleteAll" onClick={removeAll}/>
+                <DeleteForeverIcon className="deleteAll" onClick={removeAll} />
             </div>
-            <button style={{width:"100%", marginTop:10}} className="btn btn--secondary">Checkout</button>
+            <button style={{ width: "100%", marginTop: 10 }} className="btn btn--secondary">Checkout</button>
         </div>
     )
 }

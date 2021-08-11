@@ -8,6 +8,8 @@ import Footer from './pages/Footer';
 import UserList from './pages/UserList';
 import Home from './pages/Home';
 
+import StoreListStateProvider from './providers/StoreListStateProvider';
+
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
@@ -19,7 +21,6 @@ import './css/footer.css';
 import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
-import StoreListStateProvider from './providers/StoreListStateProvider';
 
 // import './css/index.scss';
 
@@ -33,9 +34,9 @@ function App() {
       <StoreListStateProvider>
         <Header />
         <Switch>
-          <Route path="/transactionLogAll" exact component={TransactionAll} />
-          <Route path="/getTransaction/:name" exact component={Transaction} />
-          <Route path="/user" exact component={UserList} />
+          <Route path="/transactionLogAll" component={TransactionAll} />
+          <Route path="/getTransaction/:name" component={Transaction} />
+          <Route path="/user" component={UserList} />
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />
         </Switch>
