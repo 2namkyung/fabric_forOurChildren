@@ -9,6 +9,13 @@ import (
 	pb "github.com/hyperledger/fabric-protos-go/peer"
 )
 
+type TransactionLog struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Amount   int    `json:"amount"`
+	Time     string `json:"time"`
+}
+
 type Chaincode struct {
 }
 
@@ -22,9 +29,31 @@ func (c *Chaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 
 	if function == "Transfer" {
 		return c.Transfer(stub, args)
+	} else if function == "QueryChildren" {
+		return c.QueryChildren(stub, args)
 	}
 
 	return shim.Success(nil)
+}
+
+func (c *Chaincode) QueryChildren(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+	var name, jsonResponse string
+	var err error
+
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting name of the marble to query")
+	}
+
+	name = args[0]
+	valAsbytes, err := stub.GetState(name)
+	if err != nil {
+		jsonResponse = "{\"Error\":\"Failed to get state for " + name + "\"}"
+		return shim.Error(jsonResponse)
+	} else if valAsbytes == nil {
+		jsonResponse = "{\"Error\":\"Marble does not exist: " + name + "\"}"
+	}
+
+	return shim.Success(valAsbytes)
 }
 
 func (c *Chaincode) Transfer(stub shim.ChaincodeStubInterface, args []string) pb.Response {
