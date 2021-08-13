@@ -19,9 +19,8 @@ func RegisteringUser(name string) error {
 		"--tls.certfiles", certfilesPath,
 	)
 
-	fmt.Println("R : ", caName, secret, certfilesPath)
-
-	err := cmd.Run()
+	out, err := cmd.Output()
+	fmt.Println(string(out))
 
 	if err != nil {
 		fmt.Println("register error", err)
@@ -47,7 +46,8 @@ func MakeUserMSP(name string) error {
 		"--tls.certfiles", certfilesPath,
 	)
 
-	err := cmd.Run()
+	out, err := cmd.Output()
+	fmt.Println("Make Output :", string(out))
 
 	if err != nil {
 		fmt.Println("make user msp error", err)
@@ -59,7 +59,8 @@ func MakeUserMSP(name string) error {
 	userConfig := "/root/project/network/organizations/peerOrganizations/org1.example.com/users/" + name + "@org1.example.com/msp/config.yaml"
 	cmd = exec.Command("cp", orgConfig, userConfig)
 
-	err = cmd.Run()
+	out, err = cmd.Output()
+	fmt.Println("cp config.yaml : ", string(out))
 
 	if err != nil {
 		fmt.Println("copy config.yaml error", err)

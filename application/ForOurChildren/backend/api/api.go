@@ -116,9 +116,10 @@ func signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// name := signform.Name
-	err = RegisteringUser("Kim")
-	err = MakeUserMSP("Kim")
+	name := signform.Name
+	fmt.Println(name)
+	err = RegisteringUser(name)
+	err = MakeUserMSP(name)
 
 	if err != nil {
 		rd.JSON(w, http.StatusForbidden, signform)
