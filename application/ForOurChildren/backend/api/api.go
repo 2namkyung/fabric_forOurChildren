@@ -46,6 +46,10 @@ type Transfer struct {
 	Coin     string `json:"coin"`
 }
 
+type SignForm struct {
+	Name string `json:"name"`
+}
+
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
 	byteReult := GetAllInfo()
 
@@ -103,6 +107,25 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 	rd.JSON(w, http.StatusOK, tx)
 }
 
+func signUp(w http.ResponseWriter, r *http.Request) {
+	var signform SignForm
+
+	err := json.NewDecoder(r.Body).Decode(&signform)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// name := signform.Name
+	err = RegisteringUser("Kim")
+	err = MakeUserMSP("Kim")
+
+	if err != nil {
+		rd.JSON(w, http.StatusForbidden, signform)
+	}
+	rd.JSON(w, http.StatusOK, signform)
+}
+
 func NewHandler() http.Handler {
 	// Using React
 	// rd = render.New(render.Options{
@@ -116,6 +139,7 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET", "OPTIONS")
 	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
+	router.HandleFunc("/signup", signUp).Methods("POST")
 
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
