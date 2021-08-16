@@ -7,6 +7,7 @@ import NotFound from './pages/Notfound';
 import Footer from './pages/Footer';
 import UserList from './pages/UserList';
 import Home from './pages/Home';
+import Explorer from './pages/Explorer';
 
 import StoreListStateProvider from './providers/StoreListStateProvider';
 
@@ -21,6 +22,7 @@ import './css/footer.css';
 import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
+import './css/explorer.css';
 
 // import './css/index.scss';
 
@@ -36,6 +38,7 @@ function App() {
         <Switch>
           <Route path="/transactionLogAll" component={TransactionAll} />
           <Route path="/getTransaction/:name" component={Transaction} />
+          <Route path="/explorer" component={Explorer} />
           <Route path="/user" component={UserList} />
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />

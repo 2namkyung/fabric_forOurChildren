@@ -15,16 +15,19 @@ class Header extends React.Component {
                         <div className="sub_menu">
                             <ul>
                                 <li>
-                                    <Link to="/" className="link_tx">Home</Link>
+                                    <Link to="/">Home</Link>
                                 </li>
                                 <li>
-                                    <Link to="/user" className="link_tx">Children</Link>
+                                    <Link to="/user">Children</Link>
                                 </li>
                                 <li>
-                                    <Link to="/transactionLogAll" className="link_tx">Transaction</Link>
+                                    <Link to="/explorer">Explorer</Link>
                                 </li>
                                 <li>
-                                    <Link to="/login" className="link_login">Login</Link>
+                                    <Link to="/transactionLogAll">Transaction</Link>
+                                </li>
+                                <li>
+                                    <Link to="/login">Login</Link>
                                 </li>
                             </ul>
                         </div>

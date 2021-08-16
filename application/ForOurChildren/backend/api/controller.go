@@ -18,7 +18,7 @@ func GetTransaction(name string) []byte {
 
 	result, err := contract.EvaluateTransaction("QueryTransactionHistroy", name)
 	if err != nil {
-		fmt.Printf("Failed to evaluate transaction: $s\n", err)
+		fmt.Printf("Failed to evaluate transaction: %s\n", err)
 		os.Exit(1)
 	}
 	fmt.Println(string(result))
@@ -30,7 +30,7 @@ func GetAllInfo() []byte {
 
 	result, err := contract.EvaluateTransaction("QueryAllChildren")
 	if err != nil {
-		fmt.Printf("Failed to evaluate transaction: $s\n", err)
+		fmt.Printf("Failed to evaluate transaction: %s\n", err)
 		os.Exit(1)
 	}
 
@@ -42,7 +42,7 @@ func GetTxLogAll() []byte {
 
 	result, err := contract.EvaluateTransaction("QueryTransactionLogAll")
 	if err != nil {
-		fmt.Printf("Failed to evaluate transaction: $s\n", err)
+		fmt.Printf("Failed to evaluate transaction: %s\n", err)
 		os.Exit(1)
 	}
 
@@ -64,7 +64,7 @@ func TransferCoin(args ...string) {
 
 	_, err := contract.SubmitTransaction("TransferAsset", from, to, time, TxID, coin)
 	if err != nil {
-		fmt.Printf("Failed to submit transaction: $s\n", err)
+		fmt.Printf("Failed to submit transaction: %s\n", err)
 		os.Exit(1)
 	}
 }
