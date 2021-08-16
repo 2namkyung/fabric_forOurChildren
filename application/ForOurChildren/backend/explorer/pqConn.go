@@ -7,6 +7,10 @@ import (
 	_ "github.com/lib/pq"
 )
 
+type pqHandler struct {
+	db *sql.DB
+}
+
 const (
 	host     = "localhost"
 	port     = 5432
@@ -15,7 +19,11 @@ const (
 	dbname   = "fabricexplorer"
 )
 
-func PQConn() *sql.DB {
+func (pq *pqHandler) Close() {
+	pq.db.Close()
+}
+
+func PQConn() DBHandler {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
@@ -23,5 +31,5 @@ func PQConn() *sql.DB {
 		panic(err)
 	}
 
-	return db
+	return &pqHandler{db: db}
 }

@@ -6,7 +6,7 @@
 
 #root{
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.7;
     font-family : 'Nanum Gothic', sans-serif;
 }
 
@@ -25,4 +25,35 @@ button {
   
     border: none;
     border-radius: 4px;
+  }
+
+  table{
+    width:100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    position: relative;
+  }
+
+  tr:nth-child(even){
+    background-color:white;
+  }
+
+  tr:nth-child(odd){
+    background-color: #dcdcdc;
+}
+
+  table th{
+    background-color: white;
+    border-top: 1px solid #444444;
+    border-bottom: 1px solid #444444;
+    padding: 2px;
+    font-size: 20px;
+  }
+
+  td{
+    position: relative;
+    text-align: center;
+    font-size: 15px;
+    line-height: 2;
+    height: 30px;
   }

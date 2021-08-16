@@ -3,4 +3,19 @@
     height:1500px;
     left:0;
     top:110px;
+    text-align: center;
+}
+
+.explorer table{
+    table-layout: fixed;
+}
+
+.explorer td{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.blocknum{
+    width:100px;
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"webservice/explorer"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -12,6 +13,11 @@ import (
 )
 
 var rd *render.Render = render.New()
+
+type AppHandler struct {
+	http.Handler
+	db explorer.DBHandler
+}
 
 type KVRecord struct {
 	Key    string   `json:"Key"`
@@ -127,6 +133,12 @@ func signUp(w http.ResponseWriter, r *http.Request) {
 	rd.JSON(w, http.StatusOK, signform)
 }
 
+func (a *AppHandler) getBlocks(w http.ResponseWriter, r *http.Request) {
+	result := a.db.QueryBlock()
+
+	rd.JSON(w, http.StatusOK, result)
+}
+
 func NewHandler() http.Handler {
 	// Using React
 	// rd = render.New(render.Options{
@@ -142,13 +154,16 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
 	router.HandleFunc("/signup", signUp).Methods("POST")
 
+	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
+	n.UseHandler(router)
+	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
+
+	router.HandleFunc("/blocks", app.getBlocks).Methods("GET", "OPTIONS")
+
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))
 	// router.PathPrefix("/").Handler(http.FileServer(http.Dir("./../front/html/")))
-
-	n := negroni.Classic()
-	n.UseHandler(router)
 
 	return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)
 }
