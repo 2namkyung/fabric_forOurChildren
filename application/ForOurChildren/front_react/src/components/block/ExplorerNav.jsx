@@ -7,7 +7,7 @@ const ExplorerNav = React.memo(() => {
         <div className="inner">
             <div className="Ex__Nav">
                 <div className="nav__list">
-                    <NavLink to="/explorer/network">Network</NavLink>
+                    <NavLink to="/explorer/network">Channel</NavLink>
                 </div>
                 <div className="nav__list">
                     <NavLink to="/explorer/blocks">Block</NavLink>

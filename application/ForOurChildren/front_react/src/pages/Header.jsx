@@ -33,7 +33,7 @@ class Header extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Badges/>
+                <Badges />
             </div>
         );
     }

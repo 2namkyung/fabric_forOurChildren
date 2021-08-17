@@ -133,12 +133,6 @@ func signUp(w http.ResponseWriter, r *http.Request) {
 	rd.JSON(w, http.StatusOK, signform)
 }
 
-func (a *AppHandler) getBlocks(w http.ResponseWriter, r *http.Request) {
-	result := a.db.QueryBlock()
-
-	rd.JSON(w, http.StatusOK, result)
-}
-
 func NewHandler() http.Handler {
 	// Using React
 	// rd = render.New(render.Options{
@@ -159,6 +153,9 @@ func NewHandler() http.Handler {
 
 	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
 	router.HandleFunc("/blocks", app.getBlocks).Methods("GET", "OPTIONS")
+	router.HandleFunc("/channel", app.getChannel).Methods("GET", "OPTIONS")
+	router.HandleFunc("/chaincode", app.getChaincode).Methods("GET", "OPTIONS")
+	router.HandleFunc("/txs", app.getTxs).Methods("GET", "OPTIONS")
 
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))

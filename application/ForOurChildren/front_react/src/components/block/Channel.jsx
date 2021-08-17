@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-export default function Tx(){
+export default function Channel(){
 
     const [results, setResult] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:4000/txs", {
+        fetch("http://localhost:4000/channel", {
             method: "GET",
             headers: { 'Content-Type': 'application/json' }
         })
@@ -21,26 +21,26 @@ export default function Tx(){
         <table>
             <thead>
                 <tr>
-                    <th className="tx__num">BlockID</th>
-                    <th>CCName</th>
-                    <th>Status</th>
+                    <th className="channel__id">ID</th>
+                    <th>Name</th>
+                    <th>Blocks</th>
                     <th>CreatedAt</th>
                 </tr>
             </thead>
             <tbody>
                 {results.map((result) => (
-                    <tr key={result.tx_blockID}>
+                    <tr key={result.network_id}>
                         <td >
-                            {result.tx_blockID}
+                            {result.network_id}
                         </td>
                         <td>
-                            {result.tx_ccName}
+                            {result.network_name}
                         </td>
                         <td>
-                            {result.tx_status}
+                            {result.network_blocks}
                         </td>
                         <td>
-                            {result.tx_createdat}
+                            {result.network_createdat}
                         </td>
                     </tr>
                 ))}
