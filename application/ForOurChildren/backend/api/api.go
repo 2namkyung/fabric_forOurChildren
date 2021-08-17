@@ -156,8 +156,8 @@ func NewHandler() http.Handler {
 
 	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
 	n.UseHandler(router)
-	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
 
+	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
 	router.HandleFunc("/blocks", app.getBlocks).Methods("GET", "OPTIONS")
 
 	// Using React

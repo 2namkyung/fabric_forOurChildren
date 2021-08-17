@@ -24,6 +24,7 @@ import './css/home.css';
 import './css/storeList.css';
 import './css/explorer.css';
 
+
 // import './css/index.scss';
 
 function App() {
