@@ -142,9 +142,9 @@ func NewHandler() http.Handler {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET", "OPTIONS")
-	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET", "OPTIONS")
-	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET", "OPTIONS")
+	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET")
+	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET")
+	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
 	router.HandleFunc("/signup", signUp).Methods("POST")
 
@@ -152,15 +152,16 @@ func NewHandler() http.Handler {
 	n.UseHandler(router)
 
 	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
-	router.HandleFunc("/blocks", app.getBlocks).Methods("GET", "OPTIONS")
-	router.HandleFunc("/channel", app.getChannel).Methods("GET", "OPTIONS")
-	router.HandleFunc("/chaincode", app.getChaincode).Methods("GET", "OPTIONS")
-	router.HandleFunc("/txs", app.getTxs).Methods("GET", "OPTIONS")
+	router.HandleFunc("/blocks", app.getBlocks).Methods("GET")
+	router.HandleFunc("/channel", app.getChannel).Methods("GET")
+	router.HandleFunc("/chaincode", app.getChaincode).Methods("GET")
+	router.HandleFunc("/txs", app.getTxs).Methods("GET")
 
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))
 	// router.PathPrefix("/").Handler(http.FileServer(http.Dir("./../front/html/")))
 
-	return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router)
+	// return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(app)
+	return handlers.CORS(handlers.AllowedHeaders([]string{"Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}))(app)
 }
