@@ -23,6 +23,7 @@ import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
 import './css/explorer.css';
+import Login from './pages/Login';
 
 
 // import './css/index.scss';
@@ -40,6 +41,7 @@ function App() {
           <Route path="/transactionLogAll" component={TransactionAll} />
           <Route path="/getTransaction/:name" component={Transaction} />
           <Route path="/explorer" component={Explorer} />
+          <Route path="/login" component={Login}/>
           <Route path="/user" component={UserList} />
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />
