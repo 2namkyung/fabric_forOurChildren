@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Login from '../components/Login';
 import Badges from './Badges';
-
-const loginStatus = false;
-const name = "Lee";
 
 class Header extends React.Component {
 
@@ -11,15 +9,13 @@ class Header extends React.Component {
         return (
             <div className="header">
                 <div className="inner">
-                    <div className="loginStatus">
-                        {loginStatus &&<p>로그인이 필요합니다</p>}
-                        {!loginStatus &&<p>{name} 님 환영합니다</p>}
-                    </div>
+
                     <div className="header_nav">
                         <div className="home">
                             <Link to="/" className="link_home">For Our Children</Link>
                         </div>
                         <div className="sub_menu">
+                            <Login/>
                             <ul>
                                 <li>
                                     <Link to="/">Home</Link>
@@ -32,9 +28,6 @@ class Header extends React.Component {
                                 </li>
                                 <li>
                                     <Link to="/transactionLogAll">Transaction</Link>
-                                </li>
-                                <li>
-                                    <Link to="/login">Login</Link>
                                 </li>
                             </ul>
                         </div>

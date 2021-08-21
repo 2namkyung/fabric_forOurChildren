@@ -6,20 +6,12 @@
     background-color: #f6f5f0;
 }
 
-.loginStatus{
-    position: absolute;
-    color: black;
-    font-weight: 700;
-    top:10px;
-    right: 0;
-}
-
 .header > .inner{
     height: 100px;
 }
 
 .header .header_nav{
-    top:30px;
+    top:20px;
     height: 70px;
     position: relative;
     display:flex;
@@ -51,9 +43,45 @@
     position: relative;
 }
 
+.loginStatus{
+    position: absolute;
+    width:300px;
+    height:35px;
+    color: black;
+    font-weight: 700;
+    top:0;
+    right: 0;
+    font-size: 15px;
+   
+}
+
+.sub_menu .loginStatus .login__ok{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    line-height: 2.5;
+}
+
+.sub_menu .loginStatus .login__ok .logout{
+    background-color: #f6f5f0;
+    text-decoration: underline;
+    color: black;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sub_menu .loginStatus .login{
+    background-color: #f6f5f0;
+    text-decoration: underline;
+    color: black;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 .header .header_nav .sub_menu ul{
     right:0;
-    top:20px;
+    bottom:0;
+    height:35px;
     position: absolute;
     display:flex;
     justify-content: center;
