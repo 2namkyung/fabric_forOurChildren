@@ -8,6 +8,8 @@ import Footer from './pages/Footer';
 import UserList from './pages/UserList';
 import Home from './pages/Home';
 import Explorer from './pages/Explorer';
+import Login from './pages/Login';
+
 
 import StoreListStateProvider from './providers/StoreListStateProvider';
 
@@ -23,7 +25,7 @@ import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
 import './css/explorer.css';
-import Login from './pages/Login';
+import './css/login.css';
 
 
 // import './css/index.scss';
