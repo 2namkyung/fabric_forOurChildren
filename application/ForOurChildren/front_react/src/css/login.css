@@ -19,11 +19,27 @@
 }
 
 .login__header{
+    position:relative;
+    display: flex;
     height: 50px;
     text-align: center;
     line-height: 1.4;
     color: black;
     background-color: green;
+    font-size: 30px;
+}
+
+.login__header h2{
+    position: absolute;
+    width:300px;
+    height:50px;
+    cursor: pointer;
+}
+
+.login__header .close__button{
+    position: absolute;
+    right:10px;
+    top:10px;
     font-size: 30px;
 }
 
@@ -74,6 +90,7 @@
     left:50px;
     top:200px;
     background-color: green;
+    cursor: pointer;
 }
 
 .signUp{
@@ -95,6 +112,7 @@
     background-color: #FF0000;
     color: #dcdcdc;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .oAuth__button .button__facebook{
@@ -102,4 +120,5 @@
     background-color: #0000CD;
     color: #dcdcdc;
     font-weight: 600;
+    cursor: pointer;
 }

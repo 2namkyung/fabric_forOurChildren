@@ -2,12 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Badges from './Badges';
 
+const loginStatus = false;
+const name = "Lee";
+
 class Header extends React.Component {
 
     render() {
         return (
             <div className="header">
                 <div className="inner">
+                    <div className="loginStatus">
+                        {loginStatus &&<p>로그인이 필요합니다</p>}
+                        {!loginStatus &&<p>{name} 님 환영합니다</p>}
+                    </div>
                     <div className="header_nav">
                         <div className="home">
                             <Link to="/" className="link_home">For Our Children</Link>

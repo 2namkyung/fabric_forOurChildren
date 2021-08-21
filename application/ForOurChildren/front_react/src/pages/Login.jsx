@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import ClearIcon from '@material-ui/icons/Clear';
 
 Modal.setAppElement('#root');
 
-export default function Login() {
+export default function Login({history}) {
 
     let subtitle;
     const [IsOpen, setIsOpen] = useState(true);
 
     function closeModal() {
         setIsOpen(false);
+        history.push('/');
     }
 
     return (
@@ -19,6 +21,7 @@ export default function Login() {
             overlayClassName="Overlay">
             <div className="login__header">
                 <h2>ForOurChildren</h2>
+                <ClearIcon className="close__button" onClick={closeModal}/>
             </div>
             <div className="login__body">
                 <h1>로그인</h1>
