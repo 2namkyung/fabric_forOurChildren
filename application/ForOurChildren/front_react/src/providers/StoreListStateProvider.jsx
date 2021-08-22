@@ -82,7 +82,6 @@ const StoreListStateProvider = ({ children }) => {
     const removeAll = useCallback(()=>{
         setOrders([]);
     }, []);
-    console.log("test");
     
     return (
         <StoreListContext.Provider value={{

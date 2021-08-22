@@ -29,7 +29,7 @@ class Transaction extends React.Component {
             for (let i = 0; i < data.length; i++) {
                 console.log(data[i].Value);
                 const obj = JSON.parse(data[i].Value);
-                if (obj.receiver == undefined){
+                if (obj.receiver === undefined){
                     const url = window.location.pathname;
                     const name = url.substr(url.lastIndexOf('/')+1);
                     obj.receiver = name;

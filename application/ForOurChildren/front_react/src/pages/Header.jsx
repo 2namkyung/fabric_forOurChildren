@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Login from '../components/Login';
+import LoginCheck from '../components/LoginCheck';
 import Badges from './Badges';
 
 class Header extends React.Component {
@@ -9,13 +9,12 @@ class Header extends React.Component {
         return (
             <div className="header">
                 <div className="inner">
-
                     <div className="header_nav">
                         <div className="home">
                             <Link to="/" className="link_home">For Our Children</Link>
                         </div>
                         <div className="sub_menu">
-                            <Login/>
+                            <LoginCheck/>
                             <ul>
                                 <li>
                                     <Link to="/">Home</Link>

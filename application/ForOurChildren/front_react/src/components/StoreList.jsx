@@ -12,7 +12,7 @@ export default function StoreList() {
             <div className="StoreList">
                 <span className="list__header">Store List For Our Children</span>
                 {storeLists.map(store => {
-                    const { id, title, price, ceo, desc } = store;
+                    const { id, title, price, desc } = store;
 
                     const click = () => {
                         addToOrder(id);

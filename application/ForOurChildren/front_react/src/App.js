@@ -26,6 +26,7 @@ import './css/home.css';
 import './css/storeList.css';
 import './css/explorer.css';
 import './css/login.css';
+import IsLoginProvider from './providers/IsLoginProvider';
 
 
 // import './css/index.scss';
@@ -38,17 +39,22 @@ function App() {
     <BrowserRouter>
       <GlobalStyles /> {/*css init*/}
       <StoreListStateProvider>
-        <Header />
+        <IsLoginProvider>
+          <Header />
+        
+
         <Switch>
           <Route path="/transactionLogAll" component={TransactionAll} />
           <Route path="/getTransaction/:name" component={Transaction} />
           <Route path="/explorer" component={Explorer} />
-          <Route path="/login" component={Login}/>
+          <Route path="/login" component={Login} />
           <Route path="/user" component={UserList} />
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />
         </Switch>
+        </IsLoginProvider>
         <Footer />
+
       </StoreListStateProvider>
     </BrowserRouter>
   );

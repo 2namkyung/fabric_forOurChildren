@@ -157,6 +157,9 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/chaincode", app.getChaincode).Methods("GET")
 	router.HandleFunc("/txs", app.getTxs).Methods("GET")
 
+	// Login
+	router.HandleFunc("/login", LoginCheck).Methods("POST")
+
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))

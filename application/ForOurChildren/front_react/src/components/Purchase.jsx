@@ -22,7 +22,7 @@ export default function Purchase() {
         window.addEventListener('scroll', hiddenPurchanse);
 
         return () => window.removeEventListener('scroll', hiddenPurchanse);
-    }, [purchaseBadge]);
+    }, []);
 
     const totalPrice = useMemo(() => {
         return orders.map(order => {

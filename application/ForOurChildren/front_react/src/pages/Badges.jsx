@@ -13,11 +13,11 @@ export default function Badges(){
     const upper = useRef(null);
 
     useEffect(()=>{
-        window.addEventListener('scroll', thorottledScrollBadges);
+        window.addEventListener('scroll', throttledScrollBadges);
         upper.current.addEventListener('click', ToTop);
     }, [badge, upper]);
 
-    const thorottledScrollBadges = useMemo(
+    const throttledScrollBadges = useMemo(
         () =>
         throttle(()=>{
         if (window.scrollY > 300) {
