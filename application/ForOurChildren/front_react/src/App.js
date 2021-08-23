@@ -38,11 +38,9 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyles /> {/*css init*/}
-      <StoreListStateProvider>
-        <IsLoginProvider>
-          <Header />
-        
-
+      
+        <Header />
+        <StoreListStateProvider>
         <Switch>
           <Route path="/transactionLogAll" component={TransactionAll} />
           <Route path="/getTransaction/:name" component={Transaction} />
@@ -52,9 +50,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />
         </Switch>
-        </IsLoginProvider>
         <Footer />
-
       </StoreListStateProvider>
     </BrowserRouter>
   );

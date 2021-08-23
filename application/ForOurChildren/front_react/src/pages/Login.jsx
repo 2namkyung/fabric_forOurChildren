@@ -61,7 +61,7 @@ export default function Login({ history }) {
                     <h3 className="email">이메일</h3>
                     <input className="login__id" value={email} onChange={EmailHandler}></input>
                     <h3 className="pw">비밀번호</h3>
-                    <input className="login__pw" value={password} onChange={PasswordHandler}></input>
+                    <input className="login__pw" value={password} onChange={PasswordHandler} type='password'></input>
                     <button type='submit' className="login__button">로그인</button>
                 </form>
                 <Link to="/" className="signUp">회원가입</Link>

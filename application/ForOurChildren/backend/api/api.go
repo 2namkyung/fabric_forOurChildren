@@ -52,10 +52,6 @@ type Transfer struct {
 	Coin     string `json:"coin"`
 }
 
-type SignForm struct {
-	Name string `json:"name"`
-}
-
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
 	byteReult := GetAllInfo()
 
@@ -111,26 +107,6 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 	coin := tx.Coin
 	TransferCoin(from, to, coin)
 	rd.JSON(w, http.StatusOK, tx)
-}
-
-func signUp(w http.ResponseWriter, r *http.Request) {
-	var signform SignForm
-
-	err := json.NewDecoder(r.Body).Decode(&signform)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	name := signform.Name
-	fmt.Println(name)
-	err = RegisteringUser(name)
-	err = MakeUserMSP(name)
-
-	if err != nil {
-		rd.JSON(w, http.StatusForbidden, signform)
-	}
-	rd.JSON(w, http.StatusOK, signform)
 }
 
 func NewHandler() http.Handler {

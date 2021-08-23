@@ -4,6 +4,7 @@ import StoreListContext from "../contexts/StoreListContext";
 
 
 const StoreListStateProvider = ({ children }) => {
+    console.log(children);
 
     const [storeLists] = useState([
         {

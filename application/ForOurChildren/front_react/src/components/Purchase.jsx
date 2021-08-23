@@ -19,9 +19,9 @@ export default function Purchase() {
     const purchaseBadge = useRef(null);
 
     useEffect(() => {
-        window.addEventListener('scroll', hiddenPurchanse);
+        window.addEventListener('scroll', hiddenPurchase);
 
-        return () => window.removeEventListener('scroll', hiddenPurchanse);
+        return () => window.removeEventListener('scroll', hiddenPurchase);
     }, []);
 
     const totalPrice = useMemo(() => {
@@ -33,7 +33,7 @@ export default function Purchase() {
     }, [orders, storeLists]);
 
 
-    const hiddenPurchanse = useMemo(
+    const hiddenPurchase = useMemo(
         () =>
             throttle(() => {
                 if (window.scrollY > 350) {
