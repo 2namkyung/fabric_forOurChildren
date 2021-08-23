@@ -1,0 +1,125 @@
+.Modal__signup{
+    position: relative;
+    width: 300px;
+    height:400px;
+    background-color: #f6f5f0;
+    left:50%;
+    top:55%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px 20px #000;
+}
+
+.Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:gray;
+}
+
+.signup__header{
+    position:relative;
+    display: flex;
+    height: 50px;
+    text-align: center;
+    line-height: 1.8;
+    color: black;
+    background-color: green;
+    font-size: 25px;
+}
+
+.signup__header h2{
+    position: absolute;
+    left: 10px;
+    width:180px;
+    height:50px;
+}
+
+.signup__header .close__button{
+    position: absolute;
+    right:10px;
+    top:10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.signup__body{
+    position:relative;
+    height: 300px;
+}
+
+.signup__body h1{
+    position: absolute;
+    left:50px;
+    top:20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.signup__body .name{
+    position:absolute;
+    left:50px;
+    top:55px;
+}
+
+.signup__body .signup__id{
+    position:absolute;
+    width: 200px;
+    height:15px;
+    left:50px;
+    top:75px;
+}
+
+.signup__body .pw{
+    position:absolute;
+    left:50px;
+    top:105px;
+}
+
+.signup__body .signup__pw{
+    position:absolute;
+    width: 200px;
+    height:15px;
+    left:50px;
+    top:125px;
+}
+
+.signup__body .pw__check{
+    position:absolute;
+    left:50px;
+    top:155px;
+}
+
+.signup__body .signup__pw__check{
+    position:absolute;
+    width: 200px;
+    height:15px;
+    left:50px;
+    top:175px;
+}
+
+.signup__body .location{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:205px;
+}
+
+.signup__body .signup__location{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:225px;
+}
+
+.signup__body .signup__button{
+    position:absolute;
+    width: 210px;
+    left:50px;
+    top:300px;
+    background-color: green;
+    cursor: pointer;
+}

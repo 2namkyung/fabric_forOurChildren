@@ -64,7 +64,7 @@ export default function Login({ history }) {
                     <input className="login__pw" value={password} onChange={PasswordHandler} type='password'></input>
                     <button type='submit' className="login__button">로그인</button>
                 </form>
-                <Link to="/" className="signUp">회원가입</Link>
+                <Link to="/signup" className="signUp">회원가입</Link>
                 <div className="oAuth__button">
                     <button className="button__google">구글 로그인</button>
                     <button className="button__facebook">페이스북 로그인</button>

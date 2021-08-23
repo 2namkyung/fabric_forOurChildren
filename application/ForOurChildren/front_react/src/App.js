@@ -25,8 +25,9 @@ import './css/notfound.css';
 import './css/home.css';
 import './css/storeList.css';
 import './css/explorer.css';
+import './css/signup.css';
 import './css/login.css';
-import IsLoginProvider from './providers/IsLoginProvider';
+import Signup from './pages/SignUp';
 
 
 // import './css/index.scss';
@@ -47,6 +48,7 @@ function App() {
           <Route path="/explorer" component={Explorer} />
           <Route path="/login" component={Login} />
           <Route path="/user" component={UserList} />
+          <Route path="/signup" component={Signup}/>
           <Route path="/" exact component={Home} />
           <Route path={"*"} component={NotFound} />
         </Switch>
