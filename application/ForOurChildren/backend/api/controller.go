@@ -21,7 +21,7 @@ func GetTransaction(name string) []byte {
 		fmt.Printf("Failed to evaluate transaction: %s\n", err)
 		os.Exit(1)
 	}
-	fmt.Println(string(result))
+
 	return result
 }
 

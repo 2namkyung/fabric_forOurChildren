@@ -57,9 +57,16 @@
 
 .sub_menu .loginStatus .login__ok{
     display: flex;
+    height: 35px;
     justify-content: center;
     align-content: center;
-    line-height: 2.5;
+    line-height: 2;
+}
+
+.sub_menu .loginStatus .login__ok .info__name{
+    color:black;
+    text-decoration: underline;
+    font-size: 18px;
 }
 
 .sub_menu .loginStatus .login__ok .logout{

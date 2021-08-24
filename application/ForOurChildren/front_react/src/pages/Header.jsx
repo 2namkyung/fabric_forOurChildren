@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LoginCheck from '../components/LoginCheck';
-import Badges from './Badges';
+import Badges from '../components/Badges';
 
 class Header extends React.Component {
 

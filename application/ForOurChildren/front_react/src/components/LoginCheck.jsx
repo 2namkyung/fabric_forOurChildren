@@ -9,10 +9,16 @@ export default function LoginCheck(){
     const { LoginStatus } = useIsLoginActions();
     const [name] = useState("Lee");
 
+    const url = "/info/" +name;
+
     return (
         <div className="loginStatus">
             {!IsLogin && <Link to="/login" className="login">You need to Login!!</Link>}
-            {IsLogin && <div className="login__ok"><p>{name} 님 환영합니다</p><button className="logout" onClick={logout}>Logout</button></div>}
+            {IsLogin && 
+            <div className="login__ok">
+                <p><Link to={url} className="info__name">{name}</Link> 님 환영합니다</p>
+                <button className="logout" onClick={logout}>Logout</button>
+            </div>}
         </div>
     );
 
