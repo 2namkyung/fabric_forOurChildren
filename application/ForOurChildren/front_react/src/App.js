@@ -41,7 +41,7 @@ function App() {
       <GlobalStyles /> {/*css init*/}
       
         <Header />
-        <StoreListStateProvider>
+        
         <Switch>
           <Route path="/transactionLogAll" component={TransactionAll} />
           <Route path="/getTransaction/:name" component={Transaction} />
@@ -53,7 +53,7 @@ function App() {
           <Route path={"*"} component={NotFound} />
         </Switch>
         <Footer />
-      </StoreListStateProvider>
+    
     </BrowserRouter>
   );
 }

@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"webservice/explorer"
 
@@ -70,11 +69,8 @@ func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
 
 	byteResult := GetTransaction(name)
 	tx := []TxHistory{}
-	fmt.Println("---------------------")
-	fmt.Println(string(byteResult))
+
 	json.Unmarshal(byteResult, &tx)
-	fmt.Println("transaction : ", tx)
-	fmt.Println("---------------------")
 
 	rd.JSON(w, http.StatusOK, tx)
 	// rd.HTML(w, http.StatusOK, "transaction", tx)
@@ -84,11 +80,8 @@ func getTransactionLog(w http.ResponseWriter, r *http.Request) {
 	byteReult := GetTxLogAll()
 
 	TxRecord := []TxRecord{}
-	fmt.Println("---------------------")
-	fmt.Println(string(byteReult))
+
 	json.Unmarshal(byteReult, &TxRecord)
-	fmt.Println("transaction : ", TxRecord)
-	fmt.Println("---------------------")
 
 	rd.JSON(w, http.StatusOK, TxRecord)
 }
