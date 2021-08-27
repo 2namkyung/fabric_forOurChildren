@@ -1,4 +1,22 @@
+import { useState } from "react";
+import { useEffect } from "react"
+
 export default function Info() {
+
+    const [result, setResult] = useState([{}]);
+
+    useEffect(() => {
+        const url = window.location.pathname;
+        fetch("http://localhost:4000/getTransaction/" + url.substr(url.lastIndexOf('/') + 1), {
+            method: "GET",
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then((response) => response.json())
+            .then((jsonData) => {
+                setResult(jsonData);
+            });
+    }, []);
+
     return (
         <div className="inner">
             <div className="info">
@@ -45,12 +63,25 @@ export default function Info() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                        </tr>
+                                        {result.map(tx => {
+                                            // console.log(JSON.parse(tx.Value));
+                                            // const obj = JSON.parse(tx.Value);
+                                            return (<tr>
+                                                <td>
+                                                    test
+                                                </td>
+                                                <td>
+                                                    test
+                                                </td>
+                                                <td>
+                                                    test
+                                                </td>
+                                                <td>
+                                                    test
+                                                </td>
+                                            </tr>);
+
+                                        })}
                                     </tbody>
                                 </table>
                             </div>

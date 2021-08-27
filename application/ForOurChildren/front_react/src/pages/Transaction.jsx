@@ -18,7 +18,6 @@ class Transaction extends React.Component {
                 this.setState({
                     data: jsonData
                 }));
-        // console.log(jsonData));
     }
 
     render() {
