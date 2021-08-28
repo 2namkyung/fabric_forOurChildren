@@ -10,9 +10,6 @@ import Home from './pages/Home';
 import Explorer from './pages/Explorer';
 import Login from './pages/Login';
 
-
-import StoreListStateProvider from './providers/StoreListStateProvider';
-
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
@@ -41,22 +38,19 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyles /> {/*css init*/}
-      
-        <Header />
-        
-        <Switch>
-          <Route path="/transactionLogAll" component={TransactionAll} />
-          <Route path="/getTransaction/:name" component={Transaction} />
-          <Route path="/explorer" component={Explorer} />
-          <Route path="/login" component={Login} />
-          <Route path="/info/:name" component={Info}/>
-          <Route path="/user" component={UserList} />
-          <Route path="/signup" component={Signup}/>
-          <Route path="/" exact component={Home} />
-          <Route path={"*"} component={NotFound} />
-        </Switch>
-        <Footer />
-    
+      <Header />
+      <Switch>
+        <Route path="/transactionLogAll" component={TransactionAll} />
+        <Route path="/getTransaction/:name" component={Transaction} />
+        <Route path="/explorer" component={Explorer} />
+        <Route path="/login" component={Login} />
+        <Route path="/info/:name" component={Info} />
+        <Route path="/user" component={UserList} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/" exact component={Home} />
+        <Route path={"*"} component={NotFound} />
+      </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

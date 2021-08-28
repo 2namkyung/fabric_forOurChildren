@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { useState } from "react"
 
 export default function Info() {
 
     const [result, setResult] = useState([{}]);
+    const [view, setView] = useState([]);
 
-    useEffect(() => {
+    useEffect(()=>{
         const url = window.location.pathname;
         fetch("http://localhost:4000/getTransaction/" + url.substr(url.lastIndexOf('/') + 1), {
             method: "GET",
@@ -13,9 +14,29 @@ export default function Info() {
         })
             .then((response) => response.json())
             .then((jsonData) => {
-                setResult(jsonData);
+                for(let i=0; i<7; i++){
+                    const obj = JSON.parse(jsonData[i].Value);
+                    setResult(obj);
+                    view.push(
+                        <tr key={i}>
+                            <td>
+                                {obj.receiver}
+                            </td>
+                            <td>
+                                {obj.coin}
+                            </td>
+                            <td>
+                                {obj.sender}
+                            </td>
+                            <td>
+                                {obj.time}
+                            </td>
+                        </tr>
+                    )
+                }
             });
-    }, []);
+            setView(view);
+    }, [view]);
 
     return (
         <div className="inner">
@@ -63,25 +84,7 @@ export default function Info() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {result.map(tx => {
-                                            // console.log(JSON.parse(tx.Value));
-                                            // const obj = JSON.parse(tx.Value);
-                                            return (<tr>
-                                                <td>
-                                                    test
-                                                </td>
-                                                <td>
-                                                    test
-                                                </td>
-                                                <td>
-                                                    test
-                                                </td>
-                                                <td>
-                                                    test
-                                                </td>
-                                            </tr>);
-
-                                        })}
+                                        {view}
                                     </tbody>
                                 </table>
                             </div>

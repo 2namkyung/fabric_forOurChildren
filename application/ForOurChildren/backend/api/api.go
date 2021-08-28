@@ -76,6 +76,19 @@ func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
 	// rd.HTML(w, http.StatusOK, "transaction", tx)
 }
 
+func getInfoHistory(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+
+	byteResult := GetTransaction(name)
+	tx := []TxHistory{}
+
+	json.Unmarshal(byteResult, &tx)
+
+	rd.JSON(w, http.StatusOK, tx)
+	// rd.HTML(w, http.StatusOK, "transaction", tx)
+}
+
 func getTransactionLog(w http.ResponseWriter, r *http.Request) {
 	byteReult := GetTxLogAll()
 
