@@ -9,10 +9,12 @@ import UserList from './pages/UserList';
 import Home from './pages/Home';
 import Explorer from './pages/Explorer';
 import Login from './pages/Login';
+import Signup from './pages/SignUp';
+import Info from './pages/Info';
+import PrivateRoute from './lib/PrivateRoute';
 
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-
 import './css/info.css';
 import './css/common.css';
 import './css/header.css';
@@ -25,8 +27,7 @@ import './css/storeList.css';
 import './css/explorer.css';
 import './css/signup.css';
 import './css/login.css';
-import Signup from './pages/SignUp';
-import Info from './pages/Info';
+
 
 
 // import './css/index.scss';
@@ -40,11 +41,11 @@ function App() {
       <GlobalStyles /> {/*css init*/}
       <Header />
       <Switch>
-        <Route path="/transactionLogAll" component={TransactionAll} />
-        <Route path="/getTransaction/:name" component={Transaction} />
+        <PrivateRoute path="/transactionLogAll" component={TransactionAll} />
+        <PrivateRoute path="/getTransaction/:name" component={Transaction} />
+        <PrivateRoute path="/info/:name" component={Info} />
         <Route path="/explorer" component={Explorer} />
         <Route path="/login" component={Login} />
-        <Route path="/info/:name" component={Info} />
         <Route path="/user" component={UserList} />
         <Route path="/signup" component={Signup} />
         <Route path="/" exact component={Home} />

@@ -14,7 +14,8 @@ export default function Info() {
         })
             .then((response) => response.json())
             .then((jsonData) => {
-                for(let i=0; i<7; i++){
+                const count = jsonData.length > 6 ? 7 : jsonData.length;
+                for(let i=0; i<count; i++){
                     const obj = JSON.parse(jsonData[i].Value);
                     setResult(obj);
                     view.push(

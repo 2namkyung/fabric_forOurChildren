@@ -11,10 +11,10 @@ export default function Explorer() {
             <ExplorerNav />
             <div className="explorer">
                 <Switch>
-                    <Route exact path="/explorer/chaincode" component={Chaincode} />
-                    <Route exact path="/explorer/blocks" component={Blocks} />
-                    <Route exact path="/explorer/network" component={Channel} />
-                    <Route exact path="/explorer/txs" component={Tx} />
+                    <Route exact path="/explorer/chaincode" component={Chaincode} exact/>
+                    <Route exact path="/explorer/blocks" component={Blocks} exact/>
+                    <Route exact path="/explorer/network" component={Channel} exact/>
+                    <Route exact path="/explorer/txs" component={Tx} exact/>
                 </Switch>
             </div>
         </div>
