@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"webservice/explorer"
 
 	_ "github.com/lib/pq"
 )
@@ -32,7 +33,9 @@ func LoginCheck(w http.ResponseWriter, r *http.Request) {
 	password := login.Password
 	check := LoginStatus{}
 
-	if email == "iddbxk@naver.com" && password == "1234" {
+	auth := explorer.PQConn().LoginChildren(email, password)
+
+	if auth {
 		check.LoginStatus = true
 		rd.JSON(w, http.StatusOK, check)
 		return
