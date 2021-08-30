@@ -28,10 +28,7 @@ import './css/explorer.css';
 import './css/signup.css';
 import './css/login.css';
 
-
-
 // import './css/index.scss';
-
 function App() {
   const GlobalStyles = createGlobalStyle`
     ${reset};

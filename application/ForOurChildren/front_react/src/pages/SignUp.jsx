@@ -8,12 +8,18 @@ export default function Signup({ history }) {
 
     const [IsOpen, setIsOpen] = useState(true);
     const [name, setName] = useState("");
+    const [age , setAge] = useState();
     const [password, setPassword] = useState("");
     const [password_check, setPasswordCheck] = useState("");
     const [location, setLocation] = useState("");
+    const [phone, setPhone] = useState("");
 
     const NameHandler = (event) =>{
         setName(event.currentTarget.value);
+    }
+
+    const AgeHandler = (event) =>{
+        setAge(Number(event.currentTarget.value));
     }
 
     const PasswordHandler = (event) =>{
@@ -26,6 +32,10 @@ export default function Signup({ history }) {
 
     const LocationHandler = (event) =>{
         setLocation(event.currentTarget.value);
+    }
+
+    const PhoneHandler = (event) =>{
+        setPhone(event.currentTarget.value);
     }
 
    function passwordCheck(){
@@ -50,6 +60,9 @@ export default function Signup({ history }) {
         let body = {
             name,
             password,
+            location,
+            phone,
+            age
         }
         
         fetch("http://localhost:4000/signup", {
@@ -89,6 +102,10 @@ export default function Signup({ history }) {
                     <input className="signup__pw__check" value={password_check} onChange={PasswordCheckHandler} type='password'></input>
                     <h3 className="location">지역</h3>
                     <input className="signup__location" value={location} onChange={LocationHandler}></input>
+                    <h3 className="phone">핸드폰번호</h3>
+                    <input className="signup__phone" value={phone} onChange={PhoneHandler}></input>
+                    <h3 className="age">나이</h3>
+                    <input className="signup__age" value={age} onChange={AgeHandler}></input>
                     <button type='submit' className="signup__button">회원가입하기</button>
                 </form>
             </div>   

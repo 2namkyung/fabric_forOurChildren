@@ -1,10 +1,10 @@
 .Modal__signup{
     position: relative;
     width: 300px;
-    height:400px;
+    height:460px;
     background-color: #f6f5f0;
     left:50%;
-    top:55%;
+    top:60%;
     transform: translate(-50%, -50%);
     box-shadow: 0px 0px 20px #000;
 }
@@ -115,11 +115,43 @@
     top:225px;
 }
 
+.signup__body .phone{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:255px;
+}
+
+.signup__body .signup__phone{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:275px;
+}
+
+.signup__body .age{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:305px;
+}
+
+.signup__body .signup__age{
+    position: absolute;
+    width:200px;
+    height:15px;
+    left:50px;
+    top:325px;
+}
+
 .signup__body .signup__button{
     position:absolute;
     width: 210px;
     left:50px;
-    top:300px;
+    top:360px;
     background-color: green;
     cursor: pointer;
 }

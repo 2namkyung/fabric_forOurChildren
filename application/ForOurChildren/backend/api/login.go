@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	_ "github.com/lib/pq"
 )
 
 type Login struct {
