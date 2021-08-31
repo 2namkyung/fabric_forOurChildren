@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const IsLoginProvider = ({children}) =>{
     const [IsLogin, setIsLogin] = useState(false);
+    const [LoginName, setLoginName] = useState("");
 
     const LoginStatus = (status) =>{
         if(status){
@@ -13,10 +14,17 @@ const IsLoginProvider = ({children}) =>{
         }
     }
 
+    const SetName = (name) =>{
+        setLoginName(name);
+    }
+
+
     return(
         <IsLoginContext.Provider value={
             {
                 IsLogin,
+                LoginName,
+                SetName,
                 LoginStatus,
             }
         }>

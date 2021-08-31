@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
+import useNameActions from '../hooks/useNameActions';
 
 Modal.setAppElement('#root');
 
@@ -11,7 +12,9 @@ export default function Login({ history }) {
     const [IsOpen, setIsOpen] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const { LoginStatus } = useIsLoginActions();
+    const { SetName } = useNameActions();
 
     const EmailHandler = (event) =>{
         setEmail(event.currentTarget.value);
@@ -40,6 +43,7 @@ export default function Login({ history }) {
         .then(response => {
             if(response.login_status){
                 LoginStatus(true);
+                SetName(email);
                 history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');

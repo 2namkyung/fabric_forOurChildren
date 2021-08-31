@@ -47,7 +47,7 @@ export default function Purchase() {
                         display: 'block'
                     })
                 }
-            }, 300),
+            }, 300), []
     );
 
     if (orders.length === 0) {
