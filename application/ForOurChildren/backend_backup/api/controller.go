@@ -89,6 +89,8 @@ func GetBlockInfo() {
 	}
 }
 
+// ------------------Testing------------------------------
+
 func TestChannelProvider(channelID string) context.ChannelProvider {
 	channelProvider := func() (context.Channel, error) {
 		return mocks.NewMockChannel(channelID)

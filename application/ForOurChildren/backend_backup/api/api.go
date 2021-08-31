@@ -124,14 +124,13 @@ func NewHandler() http.Handler {
 
 	router := mux.NewRouter()
 
+	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
+	n.UseHandler(router)
+
 	router.HandleFunc("/getTransaction/{name}", getTransactionHistory).Methods("GET")
 	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET")
 	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
-	router.HandleFunc("/signup", signUp).Methods("POST")
-
-	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
-	n.UseHandler(router)
 
 	app := &AppHandler{Handler: n, db: explorer.NewDBHandler()}
 	router.HandleFunc("/blocks", app.getBlocks).Methods("GET")
@@ -141,6 +140,7 @@ func NewHandler() http.Handler {
 
 	// Login
 	router.HandleFunc("/login", LoginCheck).Methods("POST")
+	router.HandleFunc("/signup", signUp).Methods("POST")
 
 	// Using React
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))

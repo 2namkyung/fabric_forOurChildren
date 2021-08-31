@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"webservice/api"
 	"webservice/explorer"
 )
 
@@ -13,5 +14,5 @@ func main() {
 
 	defer pq.Close()
 
-	http.ListenAndServe(":4000", NewHandler())
+	http.ListenAndServe(":4000", api.NewHandler())
 }
