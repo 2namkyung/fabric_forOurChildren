@@ -5,17 +5,20 @@ export default function Info() {
 
     const [result, setResult] = useState([{}]);
     const [view, setView] = useState([]);
+    const [info, setInfo] = useState({});
 
-    useEffect(()=>{
-        const url = window.location.pathname;
-        fetch("http://localhost:4000/getTransaction/" + url.substr(url.lastIndexOf('/') + 1), {
+    const url = window.location.pathname;
+    const name = url.substr(url.lastIndexOf('/') + 1);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/getTransaction/" +name, {
             method: "GET",
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => response.json())
             .then((jsonData) => {
                 const count = jsonData.length > 6 ? 7 : jsonData.length;
-                for(let i=0; i<count; i++){
+                for (let i = 0; i < count; i++) {
                     const obj = JSON.parse(jsonData[i].Value);
                     setResult(obj);
                     view.push(
@@ -36,8 +39,20 @@ export default function Info() {
                     )
                 }
             });
-            setView(view);
+        setView(view);
     }, [view]);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/childInfo/" + name, {
+            method:"GET",
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then((response) => response.json())
+        .then((jsonData) => {
+            setInfo(jsonData);
+            console.log(info);
+        })
+    }, [])
 
     return (
         <div className="inner">
@@ -47,10 +62,10 @@ export default function Info() {
                     <div className="profile__pic">
                         <img src="/img/gopher.png" alt="store1" />
                         <div className="profile__desc">
-                            <div><span>NAME</span><span>namkyung</span></div>
-                            <div><span>AGE</span><span>26 Years</span></div>
+                            <div><span>NAME</span><span>{info.name}</span></div>
+                            <div><span>AGE</span><span>{info.age} Years</span></div>
                             <div><span>COIN</span><span>30000</span></div>
-                            <div><span>LOCATION</span><span>Busan</span></div>
+                            <div><span>LOCATION</span><span>{info.location}</span></div>
                         </div>
                     </div>
 
@@ -60,13 +75,13 @@ export default function Info() {
                         </div>
                         <div className="body__content">
                             <div className="content__line">
-                                <span>NAME</span><span>namkyung</span><span>AGE</span><span>25 YEARS</span>
+                                <span>NAME</span><span>{info.name}</span><span>AGE</span><span>{info.age} YEARS</span>
                             </div>
                             <div className="content__line">
-                                <span>COIN</span><span>3000000</span><span>PHONE</span><span>010-4773-3208</span>
+                                <span>COIN</span><span>3000000</span><span>PHONE</span><span>{info.phone}</span>
                             </div>
                             <div className="content__line">
-                                <span>LOCATION</span><span>BUSAN</span><span>EXPIRATION</span><span>2022-07-14</span>
+                                <span>LOCATION</span><span>{info.location}</span><span>EXPIRATION</span><span className="expiration">{info.expiration}</span>
                             </div>
                         </div>
                         <div className="body__tx">

@@ -5,7 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import IsLoginProvider from './providers/IsLoginProvider';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <IsLoginProvider>

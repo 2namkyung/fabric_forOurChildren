@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-	"webservice/api"
+	"webservice/ChaincodeController"
 	"webservice/explorer"
 	"webservice/login"
 
@@ -49,7 +49,7 @@ type Transfer struct {
 }
 
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
-	byteReult := api.GetAllInfo()
+	byteReult := ChaincodeController.GetAllInfo()
 
 	KVRecord := []KVRecord{}
 	json.Unmarshal(byteReult, &KVRecord)
@@ -64,7 +64,7 @@ func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 
-	byteResult := api.GetTransaction(name)
+	byteResult := ChaincodeController.GetTransaction(name)
 	tx := []TxHistory{}
 
 	json.Unmarshal(byteResult, &tx)
@@ -77,7 +77,7 @@ func getInfoHistory(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
 
-	byteResult := api.GetTransaction(name)
+	byteResult := ChaincodeController.GetTransaction(name)
 	tx := []TxHistory{}
 
 	json.Unmarshal(byteResult, &tx)
@@ -87,7 +87,7 @@ func getInfoHistory(w http.ResponseWriter, r *http.Request) {
 }
 
 func getTransactionLog(w http.ResponseWriter, r *http.Request) {
-	byteReult := api.GetTxLogAll()
+	byteReult := ChaincodeController.GetTxLogAll()
 
 	TxRecord := []TxRecord{}
 
@@ -108,7 +108,7 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 	from := tx.Sender
 	to := tx.Receiver
 	coin := tx.Coin
-	api.TransferCoin(from, to, coin)
+	ChaincodeController.TransferCoin(from, to, coin)
 	rd.JSON(w, http.StatusOK, tx)
 }
 
@@ -138,8 +138,9 @@ func NewHandler() http.Handler {
 	// Login
 	router.HandleFunc("/login", login.LoginCheck).Methods("POST")
 	router.HandleFunc("/signup", login.SignUp).Methods("POST")
+	router.HandleFunc("/childInfo/{name}", login.ChildrenInfo).Methods("GET")
 
-	// Using React
+	// Not use FileServer for web --> Use React Library
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))
 	// router.PathPrefix("/").Handler(http.FileServer(http.Dir("./../front/html/")))

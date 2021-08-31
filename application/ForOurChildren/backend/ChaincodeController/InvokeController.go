@@ -1,4 +1,4 @@
-package api
+package ChaincodeController
 
 import (
 	"crypto/sha1"
