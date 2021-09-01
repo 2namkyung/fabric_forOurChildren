@@ -4,8 +4,10 @@ import Modal from 'react-modal';
 import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
 import useNameActions from '../hooks/useNameActions';
+import axios from 'axios';
 
 Modal.setAppElement('#root');
+// axios.defaults.withCredentials = true;
 
 export default function Login({ history }) {
 
@@ -16,15 +18,15 @@ export default function Login({ history }) {
     const { LoginStatus } = useIsLoginActions();
     const { SetName } = useNameActions();
 
-    const EmailHandler = (event) =>{
+    const EmailHandler = (event) => {
         setEmail(event.currentTarget.value);
     }
 
-    const PasswordHandler = (event) =>{
+    const PasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
     }
 
-    const SendUserInfo = (event) =>{
+    const SendUserInfo = (event) => {
         // prevent refresh page
         event.preventDefault();
 
@@ -32,23 +34,40 @@ export default function Login({ history }) {
             email,
             password,
         }
-        
-        fetch("http://localhost:4000/login", {
-            method: "POST",
-            hedaer: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
+
+        axios.post("http://localhost:4000/login",JSON.stringify(body),{
+            header: {'Content-Type':'application/json'},
+            // credential: 'include'
         })
-        .then(console.log(body))
-        .then(response => response.json())
         .then(response => {
-            if(response.login_status){
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data;
+            console.log(response);
+            if(response.data.login_status){
                 LoginStatus(true);
                 SetName(email);
                 history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');
             }
+            
         })
+
+        // fetch("http://localhost:4000/login", {
+        //     method: "POST",
+        //     hedaer: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(body)
+        // })
+        // .then(response => response.json())
+        // .then(response => {
+        //     console.log(response);
+        //     if(response.login_status){
+        //         LoginStatus(true);
+        //         SetName(email);
+        //         history.push('/');
+        //     }else{
+        //         alert('이메일과 비밀번호를 확인해주세요');
+        //     }
+        // })
     }
 
     return (
@@ -73,7 +92,7 @@ export default function Login({ history }) {
                     <button className="button__google">구글 로그인</button>
                     <button className="button__facebook">페이스북 로그인</button>
                 </div>
-            </div>   
+            </div>
         </Modal>
     )
 

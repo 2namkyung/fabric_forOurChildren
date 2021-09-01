@@ -6,6 +6,7 @@ import (
 	"webservice/ChaincodeController"
 	"webservice/explorer"
 	"webservice/login"
+	"webservice/tokenJWT"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -46,6 +47,7 @@ type Transfer struct {
 	Sender   string `json:"sender"`
 	Receiver string `json:"receiver"`
 	Coin     string `json:"coin"`
+	UserID   string `json:"user_id`
 }
 
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
@@ -105,6 +107,20 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tokenAuth, err := tokenJWT.ExtractTokenMetadata(r)
+	if err != nil {
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized1")
+		return
+	}
+
+	userID, err := tokenJWT.FetchAuth(tokenAuth)
+	if err != nil {
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized2")
+		return
+	}
+
+	tx.UserID = userID
+
 	from := tx.Sender
 	to := tx.Receiver
 	coin := tx.Coin
@@ -137,6 +153,7 @@ func NewHandler() http.Handler {
 
 	// Login
 	router.HandleFunc("/login", login.LoginCheck).Methods("POST")
+	router.HandleFunc("/logout", login.Logout).Methods("POST")
 	router.HandleFunc("/signup", login.SignUp).Methods("POST")
 	router.HandleFunc("/childInfo/{name}", login.ChildrenInfo).Methods("GET")
 
@@ -145,6 +162,11 @@ func NewHandler() http.Handler {
 	// router.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../front/js/"))))
 	// router.PathPrefix("/").Handler(http.FileServer(http.Dir("./../front/html/")))
 
-	// return handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(app)
-	return handlers.CORS(handlers.AllowedHeaders([]string{"Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"}))(app)
+	// CORS
+	credentials := handlers.AllowCredentials()
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	return handlers.CORS(headers, credentials, methods, origins)(app)
+
 }

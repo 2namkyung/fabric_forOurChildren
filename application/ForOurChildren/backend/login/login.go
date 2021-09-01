@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 	"webservice/explorer"
+	"webservice/tokenJWT"
 
 	_ "github.com/lib/pq"
 	"github.com/unrolled/render"
@@ -18,7 +20,8 @@ type Login struct {
 }
 
 type LoginStatus struct {
-	LoginStatus bool `json:"login_status"`
+	AccessToken string `json:"access_token"`
+	LoginStatus bool   `json:"login_status"`
 }
 
 func LoginCheck(w http.ResponseWriter, r *http.Request) {
@@ -36,14 +39,61 @@ func LoginCheck(w http.ResponseWriter, r *http.Request) {
 	password := login.Password
 	check := LoginStatus{}
 
-	auth := explorer.PQConn().LoginChildren(email, password)
+	// cookie
+	token, err := tokenJWT.CreateToken(email)
 
-	if auth {
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	cookie := http.Cookie{
+		Name:     "jwt",
+		Value:    token.RefreshToken,
+		Expires:  time.Now().Add(time.Hour * 1),
+		HttpOnly: true,
+	}
+
+	auth := explorer.PQConn().LoginChildren(email, password)
+	err = tokenJWT.CreateAuth(email, token)
+
+	if auth && err == nil {
 		check.LoginStatus = true
+		check.AccessToken = token.AcessToken
+		w.Header().Set("Set-Cookie", cookie.String())
 		rd.JSON(w, http.StatusOK, check)
 		return
 	}
 
 	check.LoginStatus = false
-	rd.JSON(w, http.StatusBadRequest, check)
+	rd.JSON(w, http.StatusOK, check)
+}
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+
+	auth, err := tokenJWT.ExtractTokenMetadata(r)
+	if err != nil {
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	deleted, delErr := tokenJWT.DeleteAuth(auth.AccessUUID)
+	if delErr != nil || deleted == 0 {
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
+
+	// cookie := http.Cookie{
+	// 	Name:     "jwt",
+	// 	Value:    "",
+	// 	Expires:  time.Now().Add(-time.Hour),
+	// 	HttpOnly: true,
+	// }
+
+	// w.Header().Set("Set-Cookie", cookie.String())
+
+	// rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
 }
