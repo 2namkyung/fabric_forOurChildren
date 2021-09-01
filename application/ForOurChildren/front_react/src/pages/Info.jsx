@@ -27,7 +27,7 @@ export default function Info() {
                                 {obj.receiver}
                             </td>
                             <td>
-                                {obj.coin}
+                                {obj.amount}
                             </td>
                             <td>
                                 {obj.sender}

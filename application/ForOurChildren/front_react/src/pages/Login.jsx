@@ -36,11 +36,10 @@ export default function Login({ history }) {
         }
 
         axios.post("http://localhost:4000/login",JSON.stringify(body),{
-            header: {'Content-Type':'application/json'},
-            // credential: 'include'
+            header: {'Content-Type':'application/json'}
         })
         .then(response => {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data;
+            axios.defaults.headers.common['Authorization'] = response.data.access_token;
             console.log(response);
             if(response.data.login_status){
                 LoginStatus(true);
@@ -51,23 +50,6 @@ export default function Login({ history }) {
             }
             
         })
-
-        // fetch("http://localhost:4000/login", {
-        //     method: "POST",
-        //     hedaer: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(body)
-        // })
-        // .then(response => response.json())
-        // .then(response => {
-        //     console.log(response);
-        //     if(response.login_status){
-        //         LoginStatus(true);
-        //         SetName(email);
-        //         history.push('/');
-        //     }else{
-        //         alert('이메일과 비밀번호를 확인해주세요');
-        //     }
-        // })
     }
 
     return (

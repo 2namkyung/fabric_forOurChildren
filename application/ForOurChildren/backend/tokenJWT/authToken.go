@@ -14,13 +14,14 @@ type AccessDetails struct {
 
 func ExtractToken(r *http.Request) string {
 	authToken := r.Header.Get("Authorization")
+	// fmt.Println(authToken)
 
 	return authToken
 }
 
 func VerifyToken(r *http.Request) (*jwt.Token, error) {
 	tokenString := ExtractToken(r)
-	// fmt.Println("tokenstring : ", tokenString)
+	// fmt.Println(tokenString)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method : %v", token.Header["alg"])
@@ -29,6 +30,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 	})
 
 	if err != nil {
+		fmt.Println("here")
 		return nil, err
 	}
 
@@ -51,6 +53,7 @@ func TokenValid(r *http.Request) error {
 func ExtractTokenMetadata(r *http.Request) (*AccessDetails, error) {
 	token, err := VerifyToken(r)
 	if err != nil {
+		fmt.Println("verifyToken error")
 		return nil, err
 	}
 
@@ -59,6 +62,7 @@ func ExtractTokenMetadata(r *http.Request) (*AccessDetails, error) {
 		accessUUID, ok := claims["access_UUID"].(string)
 		// fmt.Println(ok)
 		if !ok {
+			fmt.Println("ok error")
 			return nil, err
 		}
 

@@ -74,26 +74,15 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 
 	auth, err := tokenJWT.ExtractTokenMetadata(r)
 	if err != nil {
-		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized1")
 		return
 	}
 
 	deleted, delErr := tokenJWT.DeleteAuth(auth.AccessUUID)
 	if delErr != nil || deleted == 0 {
-		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized2")
 		return
 	}
 
 	rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
-
-	// cookie := http.Cookie{
-	// 	Name:     "jwt",
-	// 	Value:    "",
-	// 	Expires:  time.Now().Add(-time.Hour),
-	// 	HttpOnly: true,
-	// }
-
-	// w.Header().Set("Set-Cookie", cookie.String())
-
-	// rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
 }

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import axios from "../../node_modules/axios/index";
 import useIsLogin from "../hooks/useIsLogin";
 import useIsLoginActions from "../hooks/useIsLoginActions";
 import useName from "../hooks/useName";
@@ -23,7 +24,12 @@ export default function LoginCheck(){
     );
 
     function logout(){
+        axios.post("http://localhost:4000/logout",{
+            header: {'Content-Type':'application/json'}
+        })
+        .then(response => {
+            console.log(response);
+        })
         LoginStatus(false);
     }
-
 }

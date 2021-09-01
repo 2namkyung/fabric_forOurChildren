@@ -164,7 +164,7 @@ func NewHandler() http.Handler {
 
 	// CORS
 	credentials := handlers.AllowCredentials()
-	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods"})
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Methods", "Access-Control-Allow-Credentials"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 	return handlers.CORS(headers, credentials, methods, origins)(app)
