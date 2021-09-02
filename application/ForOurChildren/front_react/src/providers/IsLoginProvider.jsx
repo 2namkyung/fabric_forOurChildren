@@ -10,8 +10,7 @@ const IsLoginProvider = ({children}) =>{
     const [cookies] = useCookies();
 
     const LoginStatus = (status) =>{
-        // console.log(cookies.access_token, status);
-        if(cookies.access_token !== undefined && status){
+        if(status){
             SetIsLogin(true);
         }else{
             SetIsLogin(false);

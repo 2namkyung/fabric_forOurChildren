@@ -47,8 +47,9 @@ export default function Login({ history }) {
             if(response.data.login_status){
                 SetName(email);
                 setCookie('access_token', response.data.access_token);
+                setCookie('name', email);
                 LoginStatus(true);
-                history.push('/');
+                // history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');
             }

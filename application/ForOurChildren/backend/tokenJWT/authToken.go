@@ -30,7 +30,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 	})
 
 	if err != nil {
-		fmt.Println("here")
+		// fmt.Println("here")
 		return nil, err
 	}
 
