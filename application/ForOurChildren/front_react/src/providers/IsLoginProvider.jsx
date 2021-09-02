@@ -4,21 +4,22 @@ import { useCookies } from "react-cookie";
 
 
 const IsLoginProvider = ({children}) =>{
-    const [IsLogin, setIsLogin] = useState(false);
-    const [LoginName, setLoginName] = useState("");
+    const [IsLogin, SetIsLogin] = useState(false);
+    const [LoginName, SetLoginName] = useState("");
 
     const [cookies] = useCookies();
 
     const LoginStatus = (status) =>{
-        if(status){
-            setIsLogin(true);
+        // console.log(cookies.access_token, status);
+        if(cookies.access_token !== undefined && status){
+            SetIsLogin(true);
         }else{
-            setIsLogin(false);
+            SetIsLogin(false);
         }
     }
 
     const SetName = (name) =>{
-        setLoginName(name);
+        SetLoginName(name);
     }
 
     return(

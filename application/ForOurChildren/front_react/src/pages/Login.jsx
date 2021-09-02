@@ -5,7 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
 import useNameActions from '../hooks/useNameActions';
 import axios from 'axios';
-import {useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 Modal.setAppElement('#root');
 axios.defaults.withCredentials = true;
@@ -45,9 +45,9 @@ export default function Login({ history }) {
         .then(response => {
             axios.defaults.headers.common['Authorization'] = response.data.access_token;
             if(response.data.login_status){
-                LoginStatus(true);
                 SetName(email);
                 setCookie('access_token', response.data.access_token);
+                LoginStatus(true);
                 history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');

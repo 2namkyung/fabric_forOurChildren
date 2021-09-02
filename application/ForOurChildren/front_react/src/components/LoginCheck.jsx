@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
-import useIsLogin from "../hooks/useIsLogin";
 import useIsLoginActions from "../hooks/useIsLoginActions";
 import useName from "../hooks/useName";
+import useIsLogin from "../hooks/useIsLogin";
 
 export default function LoginCheck(){
 
     const [cookies, removeCookie] = useCookies();
     const { LoginStatus } = useIsLoginActions();
-    const loginName = useName();
     const IsLogin = useIsLogin();
+    const name = useName();
 
-    console.log(cookies.access_token);
+    console.log(IsLogin, name);
 
-    const url = "/info/" +loginName;
-
+    const url = "/info/" + name;
+    
     if(!IsLogin){
         return (
         <div className="loginStatus">
@@ -26,7 +26,7 @@ export default function LoginCheck(){
         return(
             <div className="loginStatus">
                 <div className="login__ok">
-                    <p><Link to={url} className="info__name">{loginName}</Link> 님 환영합니다</p>
+                    <p><Link to={url} className="info__name">{name}</Link> 님 환영합니다</p>
                     <button className="logout" onClick={logout}>Logout</button>
                 </div>
             </div>
@@ -38,9 +38,10 @@ export default function LoginCheck(){
             header: {'Content-Type':'application/json'}
         })
         .then(response => {
-            console.log(response);
+            console.log("logout");
+            LoginStatus(false);
             removeCookie('access_token');
         })
-        LoginStatus();
+        LoginStatus(false);
     }
 }

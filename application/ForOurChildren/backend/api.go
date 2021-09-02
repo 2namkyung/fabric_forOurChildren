@@ -47,7 +47,7 @@ type Transfer struct {
 	Sender   string `json:"sender"`
 	Receiver string `json:"receiver"`
 	Coin     string `json:"coin"`
-	UserID   string `json:"user_id`
+	UserID   string `json:"user_id"`
 }
 
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
