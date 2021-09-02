@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import IsLoginProvider from './providers/IsLoginProvider';
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <React.StrictMode>
-    <IsLoginProvider>
-      <App />
-    </IsLoginProvider>
+    <CookiesProvider>
+      <IsLoginProvider>
+        <App />
+      </IsLoginProvider>
+    </CookiesProvider>
+
   </React.StrictMode>,
   document.getElementById('root')
 );

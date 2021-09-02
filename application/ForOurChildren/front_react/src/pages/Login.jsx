@@ -5,11 +5,14 @@ import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
 import useNameActions from '../hooks/useNameActions';
 import axios from 'axios';
+import {useCookies } from 'react-cookie';
 
 Modal.setAppElement('#root');
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 export default function Login({ history }) {
+
+    const [ cookies, setCookie ] = useCookies();
 
     const [IsOpen, setIsOpen] = useState(true);
     const [email, setEmail] = useState("");
@@ -36,14 +39,15 @@ export default function Login({ history }) {
         }
 
         axios.post("http://localhost:4000/login",JSON.stringify(body),{
-            header: {'Content-Type':'application/json'}
+            header: {'Content-Type':'application/json'},
+            credential: true
         })
         .then(response => {
             axios.defaults.headers.common['Authorization'] = response.data.access_token;
-            console.log(response);
             if(response.data.login_status){
                 LoginStatus(true);
                 SetName(email);
+                setCookie('access_token', response.data.access_token);
                 history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');

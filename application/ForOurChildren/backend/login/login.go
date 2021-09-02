@@ -20,8 +20,9 @@ type Login struct {
 }
 
 type LoginStatus struct {
-	AccessToken string `json:"access_token"`
-	LoginStatus bool   `json:"login_status"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	LoginStatus  bool   `json:"login_status"`
 }
 
 func LoginCheck(w http.ResponseWriter, r *http.Request) {
@@ -61,6 +62,7 @@ func LoginCheck(w http.ResponseWriter, r *http.Request) {
 	if auth && err == nil {
 		check.LoginStatus = true
 		check.AccessToken = token.AcessToken
+		check.RefreshToken = token.RefreshToken
 		w.Header().Set("Set-Cookie", cookie.String())
 		rd.JSON(w, http.StatusOK, check)
 		return
@@ -83,6 +85,15 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		rd.JSON(w, http.StatusUnauthorized, "unauthorized2")
 		return
 	}
+
+	cookie := http.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HttpOnly: true,
+	}
+
+	w.Header().Set("Set-Cookie", cookie.String())
 
 	rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
 }

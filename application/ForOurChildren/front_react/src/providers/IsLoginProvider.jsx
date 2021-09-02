@@ -1,10 +1,13 @@
 import IsLoginContext from "../contexts/IsLoginContext";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 
 const IsLoginProvider = ({children}) =>{
     const [IsLogin, setIsLogin] = useState(false);
     const [LoginName, setLoginName] = useState("");
+
+    const [cookies] = useCookies();
 
     const LoginStatus = (status) =>{
         if(status){
@@ -17,7 +20,6 @@ const IsLoginProvider = ({children}) =>{
     const SetName = (name) =>{
         setLoginName(name);
     }
-
 
     return(
         <IsLoginContext.Provider value={
