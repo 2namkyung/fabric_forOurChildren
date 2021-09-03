@@ -40,7 +40,7 @@ export default function Info() {
                 }
             });
         setView(view);
-    }, [view]);
+    }, [view, name]);
 
     useEffect(() => {
         fetch("http://localhost:4000/childInfo/" + name, {
@@ -52,7 +52,7 @@ export default function Info() {
             setInfo(jsonData);
             console.log(info);
         })
-    }, [])
+    }, [info, name])
 
     return (
         <div className="inner">

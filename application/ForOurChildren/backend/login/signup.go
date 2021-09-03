@@ -67,6 +67,8 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		explorer.PQConn().SignUpChildren(name, password, location, phone, expiration, age)
 	}
 
+	defer explorer.PQConn().Close()
+
 	status.StatusCode = 3 // 3 : OKAY
 	rd.JSON(w, http.StatusOK, status)
 }

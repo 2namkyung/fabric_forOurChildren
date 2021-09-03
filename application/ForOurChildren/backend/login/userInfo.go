@@ -14,5 +14,7 @@ func ChildrenInfo(w http.ResponseWriter, r *http.Request) {
 
 	userInfo := explorer.PQConn().GetUserInfo(name)
 
+	defer explorer.PQConn().Close()
+
 	rd.JSON(w, http.StatusOK, userInfo)
 }

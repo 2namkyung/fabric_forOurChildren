@@ -57,6 +57,8 @@ func LoginCheck(w http.ResponseWriter, r *http.Request) {
 	}
 
 	auth := explorer.PQConn().LoginChildren(email, password)
+	defer explorer.PQConn().Close()
+
 	err = tokenJWT.CreateAuth(email, token)
 
 	if auth && err == nil {

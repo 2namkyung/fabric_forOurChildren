@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Modal from 'react-modal';
 import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
-import useNameActions from '../hooks/useNameActions';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
@@ -14,12 +13,12 @@ export default function Login({ history }) {
 
     const [ cookies, setCookie ] = useCookies();
 
+    const [check, setCheck] = useState(false);
     const [IsOpen, setIsOpen] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const { LoginStatus } = useIsLoginActions();
-    const { SetName } = useNameActions();
 
     const EmailHandler = (event) => {
         setEmail(event.currentTarget.value);
@@ -45,11 +44,16 @@ export default function Login({ history }) {
         .then(response => {
             axios.defaults.headers.common['Authorization'] = response.data.access_token;
             if(response.data.login_status){
-                SetName(email);
-                setCookie('access_token', response.data.access_token);
+                var expires = new Date();
+                expires.setMinutes(expires.getMinutes()+15);
+                console.log(expires);
+                setCookie('access_token', response.data.access_token, {
+                    expires,
+                });
                 setCookie('name', email);
                 LoginStatus(true);
-                // history.push('/');
+                setCheck(true);
+                history.push('/');
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');
             }
