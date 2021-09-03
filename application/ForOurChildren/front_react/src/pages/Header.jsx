@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LoginCheck from '../components/LoginCheck';
 import Badges from '../components/Badges';
+import useIsLogin from '../hooks/useIsLogin';
 
 export default function Header(){
+
+    const IsLogin = useIsLogin();
 
     return (
         <div className="header">
@@ -13,7 +16,7 @@ export default function Header(){
                         <Link to="/" className="link_home">For Our Children</Link>
                     </div>
                     <div className="sub_menu">
-                        <LoginCheck/>
+                        <LoginCheck value={IsLogin}/>
                         <ul>
                             <li>
                                 <Link to="/">Home</Link>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import ClearIcon from '@material-ui/icons/Clear';
 import useIsLoginActions from '../hooks/useIsLoginActions';
@@ -12,8 +12,6 @@ axios.defaults.withCredentials = true;
 export default function Login({ history }) {
 
     const [ cookies, setCookie ] = useCookies();
-
-    const [check, setCheck] = useState(false);
     const [IsOpen, setIsOpen] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,8 +50,8 @@ export default function Login({ history }) {
                 });
                 setCookie('name', email);
                 LoginStatus(true);
-                setCheck(true);
                 history.push('/');
+                window.location.reload();
             }else{
                 alert('이메일과 비밀번호를 확인해주세요');
             }

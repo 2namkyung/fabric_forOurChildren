@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 import useIsLoginActions from "../hooks/useIsLoginActions";
-import useIsLogin from "../hooks/useIsLogin";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function LoginCheck() {
+export default function LoginCheck(props) {
 
     const [cookies, removeCookie] = useCookies();
     const { LoginStatus } = useIsLoginActions();
 
-    const [IsLogin, SetIsLogin] = useState(useIsLogin());
+    const [IsLogin, SetIsLogin] = useState(props.value);
     const [name, SetName] = useState(cookies.name);
 
     const url = "/info/" + name;
