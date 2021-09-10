@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"webservice/ChaincodeController"
+	"webservice/auth"
 	"webservice/explorer"
 	"webservice/login"
-	"webservice/tokenJWT"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -107,15 +107,9 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tokenAuth, err := tokenJWT.ExtractTokenMetadata(r)
+	userID, err := auth.AuthActing(r)
 	if err != nil {
-		rd.JSON(w, http.StatusUnauthorized, "unauthorized1")
-		return
-	}
-
-	userID, err := tokenJWT.FetchAuth(tokenAuth)
-	if err != nil {
-		rd.JSON(w, http.StatusUnauthorized, "unauthorized2")
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
 		return
 	}
 

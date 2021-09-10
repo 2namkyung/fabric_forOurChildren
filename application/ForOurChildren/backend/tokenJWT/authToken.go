@@ -90,7 +90,6 @@ func FetchAuth(auth *AccessDetails) (string, error) {
 		return "", err
 	}
 
-	// userID, _ := strconv.ParseUint(userid, 10, 64)
 	return name, nil
 }
 

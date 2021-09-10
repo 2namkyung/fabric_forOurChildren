@@ -9,7 +9,7 @@ import (
 )
 
 type Token struct {
-	AcessToken   string
+	AccessToken  string
 	RefreshToken string
 	AccessUUID   string
 	RefreshUUID  string
@@ -36,7 +36,7 @@ func CreateToken(name string) (*Token, error) {
 	atClaims["expires"] = tokenDetails.AtExpires
 
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	tokenDetails.AcessToken, err = accessToken.SignedString([]byte("secret"))
+	tokenDetails.AccessToken, err = accessToken.SignedString([]byte("secret"))
 	if err != nil {
 		return nil, err
 	}

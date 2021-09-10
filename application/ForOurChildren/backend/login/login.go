@@ -63,7 +63,7 @@ func LoginCheck(w http.ResponseWriter, r *http.Request) {
 
 	if auth && err == nil {
 		check.LoginStatus = true
-		check.AccessToken = token.AcessToken
+		check.AccessToken = token.AccessToken
 		check.RefreshToken = token.RefreshToken
 		w.Header().Set("Set-Cookie", cookie.String())
 		rd.JSON(w, http.StatusOK, check)
