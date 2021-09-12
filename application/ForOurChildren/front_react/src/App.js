@@ -11,6 +11,7 @@ import Explorer from './pages/Explorer';
 import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import Info from './pages/Info';
+import Transfer from './pages/Transfer';
 import PrivateRoute from './lib/PrivateRoute';
 
 import { createGlobalStyle } from 'styled-components';
@@ -27,6 +28,8 @@ import './css/storeList.css';
 import './css/explorer.css';
 import './css/signup.css';
 import './css/login.css';
+import './css/transfer.css';
+
 
 // import './css/index.scss';
 function App() {
@@ -41,6 +44,7 @@ function App() {
         <PrivateRoute path="/transactionLogAll" component={TransactionAll} />
         <PrivateRoute path="/getTransaction/:name" component={Transaction} />
         <PrivateRoute path="/info/:name" component={Info} />
+        <PrivateRoute path="/transfer" component={Transfer} />
         <Route path="/explorer" component={Explorer} />
         <Route path="/login" component={Login} />
         <Route path="/user" component={UserList} />
