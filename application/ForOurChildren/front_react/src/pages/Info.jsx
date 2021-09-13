@@ -6,6 +6,7 @@ export default function Info() {
     const [result, setResult] = useState([{}]);
     const [view, setView] = useState([]);
     const [info, setInfo] = useState({});
+    const [coin, setCoin] = useState();
 
     const url = window.location.pathname;
     const name = url.substr(url.lastIndexOf('/') + 1);
@@ -18,6 +19,8 @@ export default function Info() {
             .then((response) => response.json())
             .then((jsonData) => {
                 const count = jsonData.length > 6 ? 7 : jsonData.length;
+                const obj = JSON.parse(jsonData[0].Value);
+                setCoin(obj.coin);
                 for (let i = 0; i < count; i++) {
                     const obj = JSON.parse(jsonData[i].Value);
                     setResult(obj);
@@ -52,7 +55,7 @@ export default function Info() {
             setInfo(jsonData);
             console.log(info);
         })
-    }, [info, name])
+    }, [])
 
     return (
         <div className="inner">
@@ -64,7 +67,7 @@ export default function Info() {
                         <div className="profile__desc">
                             <div><span>NAME</span><span>{info.name}</span></div>
                             <div><span>AGE</span><span>{info.age} Years</span></div>
-                            <div><span>COIN</span><span>30000</span></div>
+                            <div><span>COIN</span><span>{coin}</span></div>
                             <div><span>LOCATION</span><span>{info.location}</span></div>
                         </div>
                     </div>
@@ -78,7 +81,7 @@ export default function Info() {
                                 <span>NAME</span><span>{info.name}</span><span>AGE</span><span>{info.age} YEARS</span>
                             </div>
                             <div className="content__line">
-                                <span>COIN</span><span>3000000</span><span>PHONE</span><span>{info.phone}</span>
+                                <span>COIN</span><span>{coin}</span><span>PHONE</span><span>{info.phone}</span>
                             </div>
                             <div className="content__line">
                                 <span>LOCATION</span><span>{info.location}</span><span>EXPIRATION</span><span className="expiration">{info.expiration}</span>

@@ -48,7 +48,9 @@ export default function Login({ history }) {
                 setCookie('access_token', response.data.access_token, {
                     expires,
                 });
-                setCookie('name', email);
+                setCookie('name', email,{
+                    expires,
+                });
                 LoginStatus(true);
                 history.push('/');
                 window.location.reload();

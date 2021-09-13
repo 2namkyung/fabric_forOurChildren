@@ -97,6 +97,9 @@
 }
 
 .purchaseList .body .item p{
+    height:30px;
+    font-size: 10px;
+    line-height: 2.7;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -114,7 +117,7 @@
 
 .purchaseList .body .item .action .delete{
     width:30px;
-    height:100%;
+    height:60%;
 }
 
 .purchaseList .total{

@@ -8,13 +8,17 @@ import useActions from "../hooks/useActions";
 
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import {useCookies} from 'react-cookie';
+import axios from 'axios';
 
 export default function Purchase() {
 
     const orders = useOrders();
     const storeLists = useStoreLists();
+    const purchaseLists = [];
     const { remove, removeAll } = useActions();
+    const [cookies] = useCookies();
 
     const purchaseBadge = useRef(null);
 
@@ -50,6 +54,26 @@ export default function Purchase() {
             }, 300), []
     );
 
+    const checkout = () =>{
+        const name = cookies.name;
+        console.log(name);
+
+        let body = {
+            name,
+            purchaseLists
+        }
+
+        axios.post("http://localhost:4000/transfer", JSON.stringify(body), {
+            header: {'Content-Type':'application/json'},
+            credential:true
+        })
+        .then(response=>{
+            console.log(response);
+        });
+
+    }
+
+
     if (orders.length === 0) {
         return (
             <div className="purchaseList" ref={purchaseBadge}>
@@ -60,7 +84,6 @@ export default function Purchase() {
                         <div className="subtitle">Click on a + too add an order</div>
                     </div>
                 </div>
-
             </div>
         )
     }
@@ -72,8 +95,12 @@ export default function Purchase() {
                 {orders.map(order => {
                     const { id } = order;
                     const storeList = storeLists.find(p => p.id === id);
+                    storeList.quantity = order.quantity;
+                    purchaseLists.push(storeList);
+                    console.log(purchaseLists);
                     const click = () => {
                         remove(id);
+                        
                     }
                     return (
                         <div className="item" key={id}>
@@ -94,7 +121,7 @@ export default function Purchase() {
                 <div className="price">$ {totalPrice}</div>
                 <DeleteForeverIcon className="deleteAll" onClick={removeAll} />
             </div>
-            <button style={{ width: "100%", marginTop: 10 }} className="btn btn--secondary">Checkout</button>
+            <button style={{ width: "100%", marginTop: 10 }} className="btn btn--secondary" onClick={checkout}>Checkout</button>
         </div>
     )
 }
