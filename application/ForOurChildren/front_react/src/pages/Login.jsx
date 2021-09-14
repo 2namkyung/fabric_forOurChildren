@@ -43,7 +43,7 @@ export default function Login({ history }) {
             axios.defaults.headers.common['Authorization'] = response.data.access_token;
             if(response.data.login_status){
                 var expires = new Date();
-                expires.setMinutes(expires.getMinutes()+15);
+                expires.setMinutes(expires.getMinutes()+60);
                 console.log(expires);
                 setCookie('access_token', response.data.access_token, {
                     expires,

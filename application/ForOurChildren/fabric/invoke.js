@@ -40,10 +40,13 @@ async function main() {
         const contract = network.getContract('children');
 
         // Submit the specified transaction.
-	await contract.submitTransaction('InitLedger');
-	await contract.submitTransaction('CreateCoin', 'Jenny', 100000);
-	await contract.submitTransaction('CreateCoin', 'Tom', 100000);
-	await contract.submitTransaction('CreateCoin', 'Joo', 100000);
+	// await contract.submitTransaction('InitLedger');
+	await contract.submitTransaction('CreateCoin', 'ETDG Store', 0);
+	await contract.submitTransaction('CreateCoin', 'ABCE Store', 0);
+	await contract.submitTransaction('CreateCoin', 'WAC Store', 0);
+	await contract.submitTransaction('CreateCoin', 'PEA Store', 0);
+	await contract.submitTransaction('CreateCoin', 'ABC Store', 0);
+	await contract.submitTransaction('CreateCoin', 'CDG Store', 0);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.

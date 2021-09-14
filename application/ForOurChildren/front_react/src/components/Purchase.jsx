@@ -63,12 +63,17 @@ export default function Purchase() {
             purchaseLists
         }
 
-        axios.post("http://localhost:4000/transfer", JSON.stringify(body), {
-            header: {'Content-Type':'application/json'},
+        axios.post("http://localhost:4000/purchase", JSON.stringify(body), {
+            headers: {'Content-Type':'application/json',
+            'Authorization': `${cookies.access_token}`},
             credential:true
         })
         .then(response=>{
-            console.log(response);
+            if(response.status===200){
+                alert("결제가 성공되었습니다!!");
+            }else{
+                alert("결제가 불가합니다!!");
+            }
         });
 
     }

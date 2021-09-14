@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 	"webservice/ChaincodeController"
 	"webservice/auth"
 	"webservice/explorer"
@@ -16,38 +17,15 @@ import (
 
 var rd *render.Render = render.New()
 
-type KVRecord struct {
-	Key    string   `json:"Key"`
-	Record Children `json:"Record"`
-}
-
-type TransactionLog struct {
-	Sender   string `json:"sender"`
-	Receiver string `json:"receiver"`
-	Amount   int    `json:"amount"`
-	Time     string `json:"time"`
-}
-
-type TxRecord struct {
-	Key   string          `json:"Key"`
-	TxLog *TransactionLog `json:"TransactionLog"`
-}
-
 type Children struct {
 	Name string `json:"name"`
 	Coin int    `json:"coin"`
 }
 
-type TxHistory struct {
-	TxId  string `json:"TxId"`
-	Value string `json:"Value"`
-}
-
-type Transfer struct {
-	Sender   string `json:"sender"`
-	Receiver string `json:"receiver"`
-	Coin     string `json:"coin"`
-	UserID   string `json:"user_id"`
+// ---------- get Children's info ---------------------------
+type KVRecord struct {
+	Key    string   `json:"Key"`
+	Record Children `json:"Record"`
 }
 
 func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
@@ -60,6 +38,12 @@ func getAllChildrenInfo(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("-------------")
 	// GetBlockInfo()
 	// fmt.Println("-------------")
+}
+
+// ---------- get Tx's History ---------------------------
+type TxHistory struct {
+	TxId  string `json:"TxId"`
+	Value string `json:"Value"`
 }
 
 func getTransactionHistory(w http.ResponseWriter, r *http.Request) {
@@ -88,6 +72,19 @@ func getInfoHistory(w http.ResponseWriter, r *http.Request) {
 	// rd.HTML(w, http.StatusOK, "transaction", tx)
 }
 
+type TransactionLog struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Amount   int    `json:"amount"`
+	Time     string `json:"time"`
+}
+
+type TxRecord struct {
+	Key   string          `json:"Key"`
+	TxLog *TransactionLog `json:"TransactionLog"`
+}
+
+// get All Tx's Log
 func getTransactionLog(w http.ResponseWriter, r *http.Request) {
 	byteReult := ChaincodeController.GetTxLogAll()
 
@@ -96,6 +93,56 @@ func getTransactionLog(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(byteReult, &TxRecord)
 
 	rd.JSON(w, http.StatusOK, TxRecord)
+}
+
+// ---------- purchase Item ---------------------------
+type purchaseItem struct {
+	Name          string          `json:"name"`
+	PurchaseLists []PurchaseLists `json:"purchaseLists"`
+}
+
+type PurchaseLists struct {
+	Title    string `json:"title"`
+	Price    int    `json:"price"`
+	Quantity int    `json:"Quantity"`
+}
+
+func purchase(w http.ResponseWriter, r *http.Request) {
+	var pi purchaseItem
+
+	err := json.NewDecoder(r.Body).Decode(&pi)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	userName, err := auth.AuthActing(r)
+	if err != nil {
+		rd.JSON(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	// check cookies's name == AuthActing's name
+	if userName != pi.Name {
+		rd.JSON(w, http.StatusUnauthorized, "not match name")
+		return
+	}
+
+	// transfer Coin
+	for i := 0; i < len(pi.PurchaseLists); i++ {
+		coin := pi.PurchaseLists[i].Price * pi.PurchaseLists[i].Quantity
+		go ChaincodeController.TransferCoin(userName, pi.PurchaseLists[i].Title, strconv.Itoa(coin))
+	}
+
+	rd.JSON(w, http.StatusOK, "SUCCESS")
+}
+
+// ---------- transfer Money ---------------------------
+type Transfer struct {
+	Sender   string `json:"sender"`
+	Receiver string `json:"receiver"`
+	Coin     string `json:"coin"`
+	UserID   string `json:"user_id"`
 }
 
 func transferMoney(w http.ResponseWriter, r *http.Request) {
@@ -138,6 +185,7 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/transactionLogAll", getTransactionLog).Methods("GET")
 	router.HandleFunc("/getAllInfo", getAllChildrenInfo).Methods("GET")
 	router.HandleFunc("/transfer", transferMoney).Methods("POST")
+	router.HandleFunc("/purchase", purchase).Methods("POST")
 
 	app := &explorer.AppHandler{Handler: n, DB: explorer.NewDBHandler()}
 	router.HandleFunc("/blocks", app.GetBlocks).Methods("GET")
