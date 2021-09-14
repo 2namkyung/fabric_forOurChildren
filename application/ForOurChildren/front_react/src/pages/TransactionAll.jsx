@@ -14,7 +14,7 @@ class TransactionAll extends React.Component {
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => response.json())
-            .then((jsonData) =>
+            .then((jsonData) => 
                 this.setState({
                     data: jsonData
                 }));

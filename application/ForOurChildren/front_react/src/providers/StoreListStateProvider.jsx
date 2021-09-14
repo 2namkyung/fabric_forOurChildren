@@ -36,7 +36,7 @@ const StoreListStateProvider = ({ children }) => {
         },
         {
             id: "p-05",
-            title: "WAC Store",
+            title: "GOO Store",
             ceo: "Choi",
             desc: "가게 소개 글을 적어주세요.",
             price: 6500,

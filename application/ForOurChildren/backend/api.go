@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"sync"
 	"webservice/ChaincodeController"
 	"webservice/auth"
 	"webservice/explorer"
@@ -129,10 +130,16 @@ func purchase(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// transfer Coin
+	var wait sync.WaitGroup
 	for i := 0; i < len(pi.PurchaseLists); i++ {
+		wait.Add(1)
 		coin := pi.PurchaseLists[i].Price * pi.PurchaseLists[i].Quantity
-		go ChaincodeController.TransferCoin(userName, pi.PurchaseLists[i].Title, strconv.Itoa(coin))
+		go func(i int) {
+			defer wait.Done()
+			ChaincodeController.TransferCoin(userName, pi.PurchaseLists[i].Title, strconv.Itoa(coin))
+		}(i)
 	}
+	wait.Wait()
 
 	rd.JSON(w, http.StatusOK, "SUCCESS")
 }

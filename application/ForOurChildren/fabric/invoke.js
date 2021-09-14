@@ -40,10 +40,10 @@ async function main() {
         const contract = network.getContract('children');
 
         // Submit the specified transaction.
-	// await contract.submitTransaction('InitLedger');
+	await contract.submitTransaction('InitLedger');
 	await contract.submitTransaction('CreateCoin', 'ETDG Store', 0);
 	await contract.submitTransaction('CreateCoin', 'ABCE Store', 0);
-	await contract.submitTransaction('CreateCoin', 'WAC Store', 0);
+	await contract.submitTransaction('CreateCoin', 'GOO Store', 0);
 	await contract.submitTransaction('CreateCoin', 'PEA Store', 0);
 	await contract.submitTransaction('CreateCoin', 'ABC Store', 0);
 	await contract.submitTransaction('CreateCoin', 'CDG Store', 0);
