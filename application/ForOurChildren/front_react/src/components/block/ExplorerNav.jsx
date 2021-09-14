@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 // ExplorerNav don't need to re-render
 const ExplorerNav = React.memo(() => {
     return (
-        <div className="inner">
             <div className="Ex__Nav">
                 <div className="nav__list">
                     <NavLink to="/explorer/network">Channel</NavLink>
@@ -19,7 +18,6 @@ const ExplorerNav = React.memo(() => {
                     <NavLink to="/explorer/chaincode">Chaincode</NavLink>
                 </div>
             </div>
-        </div>
     )
 })
 

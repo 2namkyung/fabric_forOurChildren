@@ -1,12 +1,21 @@
 .explorer{
     position:relative;
-    height:1500px;
+    height: 1400px;
     left:0;
-    top:100px;
+    top:110px;
     text-align: center;
+    overflow: hidden;
 }
 
-.explorer table{
+tbody{
+    display: block;
+    height:1200px;
+    overflow: auto;
+}
+
+thead, tbody tr{
+    display:table;
+    width: 100%;
     table-layout: fixed;
 }
 
@@ -22,7 +31,6 @@
 
 
 /* ----------------block------------------ */
-
 .Ex__Nav{
     position:relative;
     height: 50px;

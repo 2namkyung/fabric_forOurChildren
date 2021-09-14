@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Chaincode(){
+export default function Chaincode() {
 
     const [results, setResult] = useState([]);
 
@@ -19,32 +19,32 @@ export default function Chaincode(){
 
     return (
         <table>
-        <thead>
-            <tr>
-                <th className="cc__ID">ID</th>
-                <th>Name</th>
-                <th>Version</th>
-                <th>CreatedAt</th>
-            </tr>
-        </thead>
-        <tbody>
-            {results.map((result) => (
-                <tr key={result.cc_id}>
-                    <td >
-                        {result.cc_id}
-                    </td>
-                    <td>
-                        {result.cc_name}
-                    </td>
-                    <td>
-                        {result.cc_version}
-                    </td>
-                    <td>
-                        {result.cc_createdat}
-                    </td>
+            <thead>
+                <tr>
+                    <th className="cc__ID">ID</th>
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th>CreatedAt</th>
                 </tr>
-            ))}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {results.map((result) => (
+                    <tr key={result.cc_id}>
+                        <td >
+                            {result.cc_id}
+                        </td>
+                        <td>
+                            {result.cc_name}
+                        </td>
+                        <td>
+                            {result.cc_version}
+                        </td>
+                        <td>
+                            {result.cc_createdat}
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     )
 }
