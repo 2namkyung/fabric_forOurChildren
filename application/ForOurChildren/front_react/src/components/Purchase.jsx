@@ -74,6 +74,9 @@ export default function Purchase() {
             }else{
                 alert("결제가 불가합니다!!");
             }
+        })
+        .catch(()=>{
+            alert("로그인이 필요합니다");
         });
 
     }
