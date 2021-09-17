@@ -17,7 +17,6 @@ export default function LoginCheck(props) {
 
     useEffect(()=>{
         if(cookies.access_token !== "undefined" && cookies.access_token !== undefined){
-            console.log("test");
             SetIsLogin(true);
             LoginStatus(true);
             SetName(cookies.name);

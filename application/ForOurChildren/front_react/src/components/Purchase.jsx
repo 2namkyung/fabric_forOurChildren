@@ -75,7 +75,7 @@ export default function Purchase() {
                 alert("결제가 불가합니다!!");
             }
         })
-        .catch((response)=>{
+        .catch(()=>{
             alert("로그인이 필요합니다");
         });
 

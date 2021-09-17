@@ -4,7 +4,6 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
-	"os"
 	"time"
 	"webservice/auth"
 )
@@ -25,6 +24,6 @@ func TransferCoin(args ...string) {
 	_, err := contract.SubmitTransaction("TransferAsset", from, to, time, TxID, coin)
 	if err != nil {
 		fmt.Printf("Failed to submit transaction: %s\n", err)
-		os.Exit(1)
+		return
 	}
 }
