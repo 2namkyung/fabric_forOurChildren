@@ -43,11 +43,12 @@ function App() {
       <Switch>
         <PrivateRoute path="/transactionLogAll" component={TransactionAll} />
         <PrivateRoute path="/getTransaction/:name" component={Transaction} />
+        <PrivateRoute path="/user" component={UserList} />
         <PrivateRoute path="/info/:name" component={Info} />
         <PrivateRoute path="/transfer" component={Transfer} />
+        
         <Route path="/explorer" component={Explorer} />
         <Route path="/login" component={Login} />
-        <Route path="/user" component={UserList} />
         <Route path="/signup" component={Signup} />
         <Route path="/" exact component={Home} />
         <Route path={"*"} component={NotFound} />

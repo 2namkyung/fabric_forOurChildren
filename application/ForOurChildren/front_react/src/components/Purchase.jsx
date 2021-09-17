@@ -56,7 +56,7 @@ export default function Purchase() {
 
     const checkout = () =>{
         const name = cookies.name;
-        console.log(name);
+        // console.log(name);
 
         let body = {
             name,
@@ -75,7 +75,7 @@ export default function Purchase() {
                 alert("결제가 불가합니다!!");
             }
         })
-        .catch(()=>{
+        .catch((response)=>{
             alert("로그인이 필요합니다");
         });
 

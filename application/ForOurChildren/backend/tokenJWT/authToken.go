@@ -53,7 +53,7 @@ func TokenValid(r *http.Request) error {
 func ExtractTokenMetadata(r *http.Request) (*AccessDetails, error) {
 	token, err := VerifyToken(r)
 	if err != nil {
-		fmt.Println("verifyToken error")
+		// fmt.Println("verifyToken error")
 		return nil, err
 	}
 
@@ -62,7 +62,7 @@ func ExtractTokenMetadata(r *http.Request) (*AccessDetails, error) {
 		accessUUID, ok := claims["access_UUID"].(string)
 		// fmt.Println(ok)
 		if !ok {
-			fmt.Println("ok error")
+			// fmt.Println("ok error")
 			return nil, err
 		}
 

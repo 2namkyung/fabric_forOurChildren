@@ -6,6 +6,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Badges(){
 
@@ -59,6 +60,9 @@ export default function Badges(){
     return (
         <div>
             <div className="badges" ref={badge}>
+                <div className="badge">
+                    <Link to="/transfer">송금하기</Link>
+                </div>
                 <div className="badge">
                     <img src="/img/gopher.png" alt="Badge"></img>
                 </div>

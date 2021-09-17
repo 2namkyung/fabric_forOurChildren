@@ -179,7 +179,7 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 func NewHandler() http.Handler {
 	// Using React
 	// rd = render.New(render.Options{
-	// 	Extensions: []string{".html"},
+	// 	Extensions: []string{".html", ".tmpl"},
 	// 	Directory:  "./../front/html/",
 	// })
 

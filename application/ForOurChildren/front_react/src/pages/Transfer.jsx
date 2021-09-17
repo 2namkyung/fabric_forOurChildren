@@ -1,7 +1,9 @@
-export default function Transfer(){
-    return(
+export default function Transfer() {
+    return (
         <div className="inner">
-            transfer page
+            <div className="transfer">
+                transfer page
+            </div>
         </div>
     )
 }
