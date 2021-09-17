@@ -8,7 +8,7 @@ import (
 	"webservice/auth"
 )
 
-func TransferCoin(args ...string) {
+func TransferCoin(args ...string) error {
 	contract := auth.GetAuth_Contract("children")
 	from := args[0]
 	to := args[1]
@@ -24,6 +24,8 @@ func TransferCoin(args ...string) {
 	_, err := contract.SubmitTransaction("TransferAsset", from, to, time, TxID, coin)
 	if err != nil {
 		fmt.Printf("Failed to submit transaction: %s\n", err)
-		return
+		return err
 	}
+
+	return nil
 }

@@ -32,13 +32,11 @@ export default function Transfer({history}) {
         })
         .then(response=>{
             console.log(response);
-            if(response.status==200){
-                alert("송금 완료!!");
-                history.push('/');
-            }
+            alert("송금 완료!!");
+            history.push('/');
         })
         .catch(()=>{
-            alert("정보를 확인해주세요");
+            alert("시스템 에러!! 관리자에게 문의하세요");
             history.push('/');
         });
     }

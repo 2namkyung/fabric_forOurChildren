@@ -150,7 +150,6 @@ type Transfer struct {
 	Receiver string `json:"receiver"`
 	Coin     string `json:"coin"`
 	UserID   string `json:"user_id"`
-	Status   int    `json:"status"`
 }
 
 func transferMoney(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +163,6 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 
 	userID, err := auth.AuthActing(r)
 	if err != nil {
-		tx.Status = 401
 		rd.JSON(w, http.StatusUnauthorized, tx)
 		return
 	}
@@ -174,8 +172,12 @@ func transferMoney(w http.ResponseWriter, r *http.Request) {
 	from := tx.Sender
 	to := tx.Receiver
 	coin := tx.Coin
-	tx.Status = 200
-	ChaincodeController.TransferCoin(from, to, coin)
+
+	err = ChaincodeController.TransferCoin(from, to, coin)
+	if err != nil {
+		rd.JSON(w, http.StatusForbidden, tx)
+	}
+
 	rd.JSON(w, http.StatusOK, tx)
 }
 
