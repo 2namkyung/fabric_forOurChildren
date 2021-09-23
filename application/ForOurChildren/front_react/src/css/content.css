@@ -5,6 +5,12 @@
     top:110px;
 }
 
+.content .TxID{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .content .pagination{
     position: relative;
     left:550px;
