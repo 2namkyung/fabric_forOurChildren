@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Pagination from '../js/Pagination';
 
 export default function TransactionAll() {
 
@@ -61,8 +62,10 @@ export default function TransactionAll() {
                             ))}
                         </tbody>
                     </table>
+                    <Pagination postsPerPage={postsPerPage} totalPosts={results.length} paginate={setCurrentPage}/>
                 </div>
             </div>
+           
         </>
     );
 }

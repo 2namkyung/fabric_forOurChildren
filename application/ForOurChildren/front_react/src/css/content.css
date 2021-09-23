@@ -1,8 +1,14 @@
 .content{
     position:relative;
-    height:1500px;
+    height:700px;
     left:0;
     top:110px;
+}
+
+.content .pagination{
+    position: relative;
+    left:550px;
+    bottom: 850px;
 }
 
 .content table td .data{
