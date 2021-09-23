@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
+import Pagination from "../../js/Pagination";
 
-export default function Tx(){
+export default function Tx() {
 
     const [results, setResult] = useState([]);
+
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
 
     useEffect(() => {
         fetch("http://localhost:4000/txs", {
@@ -15,36 +20,43 @@ export default function Tx(){
             })
     }, []);
 
-    console.log(results);
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = results.slice(indexOfFirst, indexOfLast);
+
+    // console.log(results);
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th className="tx__num">BlockID</th>
-                    <th>CCName</th>
-                    <th>Status</th>
-                    <th>CreatedAt</th>
-                </tr>
-            </thead>
-            <tbody>
-                {results.map((result) => (
-                    <tr key={result.tx_blockID}>
-                        <td >
-                            {result.tx_blockID}
-                        </td>
-                        <td>
-                            {result.tx_ccName}
-                        </td>
-                        <td>
-                            {result.tx_status}
-                        </td>
-                        <td>
-                            {result.tx_createdat}
-                        </td>
+        <>
+            <table>
+                <thead>
+                    <tr>
+                        <th className="tx__num">BlockID</th>
+                        <th>CCName</th>
+                        <th>Status</th>
+                        <th>CreatedAt</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {currentPosts.map((result) => (
+                        <tr>
+                            <td >
+                                {result.tx_blockID}
+                            </td>
+                            <td>
+                                {result.tx_ccName}
+                            </td>
+                            <td>
+                                {result.tx_status}
+                            </td>
+                            <td>
+                                {result.tx_createdat}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <Pagination postsPerPage={postsPerPage} totalPosts={results.length} paginate={setCurrentPage} />
+        </>
     )
 }

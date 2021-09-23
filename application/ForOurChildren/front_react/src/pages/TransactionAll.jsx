@@ -1,4 +1,5 @@
 import React from 'react';
+import Pagination from '../js/Pagination';
 
 class TransactionAll extends React.Component {
     constructor(props) {

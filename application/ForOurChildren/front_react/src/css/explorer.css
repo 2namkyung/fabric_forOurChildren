@@ -1,6 +1,6 @@
 .explorer{
     position:relative;
-    height: 1400px;
+    height: 600px;
     left:0;
     top:110px;
     text-align: center;
@@ -23,6 +23,12 @@ thead, tbody tr{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.explorer .pagination{
+    position: relative;
+    left:400px;
+    bottom: 850px;
 }
 
 .blocknum{

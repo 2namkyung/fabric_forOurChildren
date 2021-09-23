@@ -29,6 +29,7 @@ import './css/explorer.css';
 import './css/signup.css';
 import './css/login.css';
 import './css/transfer.css';
+import './css/pagination.css';
 
 
 // import './css/index.scss';
