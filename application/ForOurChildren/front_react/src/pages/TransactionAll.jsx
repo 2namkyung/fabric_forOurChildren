@@ -1,55 +1,32 @@
 import React from 'react';
-import Pagination from '../js/Pagination';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-class TransactionAll extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        }
-    }
+export default function TransactionAll() {
 
-    componentDidMount() {
+    const [results, setResult] = useState([]);
+
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
+
+    useEffect(() => {
         fetch("http://localhost:4000/transactionLogAll", {
             method: "GET",
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => response.json())
-            .then((jsonData) => 
-                this.setState({
-                    data: jsonData
-                }));
-        // console.log(jsonData));
-    }
+            .then((jsonData) => {
+                setResult(jsonData)
+            })
+    }, []);
 
-    render() {
-        const data = this.state.data;
-        const resultList = () => {
-            const result = [];
-            for (let i = 0; i < data.length; i++) {
-                    result.push(
-                        <tr key={i}>
-                            <td>
-                                {data[i].Key}
-                            </td>
-                            <td>
-                                {data[i].TransactionLog.receiver}
-                            </td>
-                            <td>
-                                {data[i].TransactionLog.amount}
-                            </td>
-                            <td>
-                                {data[i].TransactionLog.sender}
-                            </td>
-                            <td>
-                                {data[i].TransactionLog.time}
-                            </td>
-                        </tr>
-                    )
-            }
-            return result;
-        }
-        return (
+    const indexOfLast = currentPage * postsPerPage;
+    const indexOfFirst = indexOfLast - postsPerPage;
+    const currentPosts = results.slice(indexOfFirst, indexOfLast);
+
+    return (
+        <>
             <div>
                 <div className="content">
                     <table>
@@ -63,15 +40,29 @@ class TransactionAll extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {resultList()}
+                            {currentPosts.map((result) =>(
+                                <tr key={result.key}>
+                                <td>
+                                    {result.Key}
+                                </td>
+                                <td>
+                                    {result.TransactionLog.receiver}
+                                </td>
+                                <td>
+                                    {result.TransactionLog.amount}
+                                </td>
+                                <td>
+                                    {result.TransactionLog.sender}
+                                </td>
+                                <td>
+                                    {result.TransactionLog.time}
+                                </td>
+                            </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </div>
-        );
-    }
-
+        </>
+    );
 }
-
-
-export default TransactionAll;
