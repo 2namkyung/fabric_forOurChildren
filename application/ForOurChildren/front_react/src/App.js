@@ -13,6 +13,7 @@ import Signup from './pages/SignUp';
 import Info from './pages/Info';
 import Transfer from './pages/Transfer';
 import PrivateRoute from './lib/PrivateRoute';
+import UserQR from './components/QrcodePopup';
 
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
@@ -30,7 +31,6 @@ import './css/signup.css';
 import './css/login.css';
 import './css/transfer.css';
 import './css/pagination.css';
-import Qrcode from './pages/Qrcode';
 
 
 // import './css/index.scss';
@@ -46,9 +46,8 @@ function App() {
         <PrivateRoute path="/transactionLogAll" component={TransactionAll} />
         <PrivateRoute path="/getTransaction/:name" component={Transaction} />
         <PrivateRoute path="/user" component={UserList} />
-        <PrivateRoute path="/info/:name" component={Info} />
         <PrivateRoute path="/transfer" component={Transfer} />
-        <PrivateRoute path="/qrcode/:name" component={Qrcode}/>
+        <PrivateRoute path="/info/:name" component={Info} />
         
         <Route path="/explorer" component={Explorer} />
         <Route path="/login" component={Login} />

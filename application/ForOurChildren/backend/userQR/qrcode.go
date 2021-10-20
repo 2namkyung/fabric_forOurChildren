@@ -17,11 +17,7 @@ func Qrcode(w http.ResponseWriter, r *http.Request) {
 	name := vars["name"]
 
 	fmt.Println("name : ", name)
-	err := qrcode.WriteFile("http://localhost:4000/getTransaction/"+name, qrcode.Medium, 256, name+".png")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	GenQR(name)
 
 	fileBytes, err := ioutil.ReadFile(name + ".png")
 	if err != nil {
@@ -29,8 +25,17 @@ func Qrcode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/octet-stream")
-	w.Write(fileBytes)
+	// fmt.Println(fileBytes)
 
-	rd.JSON(w, http.StatusOK, "SUCCESS")
+	// w.Header().Set("Content-Type", "application/octet-stream")
+	// w.Write(fileBytes)
+	// return
+	rd.JSON(w, http.StatusOK, fileBytes)
+}
+
+func GenQR(name string) {
+	err := qrcode.WriteFile("http://localhost:3000/info/"+name, qrcode.Medium, 256, name+".png")
+	if err != nil {
+		panic(err)
+	}
 }
