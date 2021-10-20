@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
 export default function Info() {
 
@@ -12,7 +13,7 @@ export default function Info() {
     const name = url.substr(url.lastIndexOf('/') + 1);
 
     useEffect(() => {
-        fetch("http://localhost:4000/getTransaction/" +name, {
+        fetch("http://localhost:4000/getTransaction/" + name, {
             method: "GET",
             headers: { 'Content-Type': 'application/json' }
         })
@@ -47,20 +48,26 @@ export default function Info() {
 
     useEffect(() => {
         fetch("http://localhost:4000/childInfo/" + name, {
-            method:"GET",
+            method: "GET",
             headers: { 'Content-Type': 'application/json' }
         })
-        .then((response) => response.json())
-        .then((jsonData) => {
-            setInfo(jsonData);
-            console.log(info);
-        })
+            .then((response) => response.json())
+            .then((jsonData) => {
+                setInfo(jsonData);
+                // console.log(info);
+            })
     }, [])
 
     return (
         <div className="inner">
             <div className="info">
-                <h1>User Profile</h1>
+                <div className="info__header">
+                    <h1>User Profile</h1>
+                    <div className="qrcode"><Link to={{
+                        pathname: `/qrcode/${name}`
+                    }}>QRCODE</Link></div>
+                </div>
+
                 <div className="profile">
                     <div className="profile__pic">
                         <img src="/img/gopher.png" alt="store1" />

@@ -30,6 +30,7 @@ import './css/signup.css';
 import './css/login.css';
 import './css/transfer.css';
 import './css/pagination.css';
+import Qrcode from './pages/Qrcode';
 
 
 // import './css/index.scss';
@@ -47,6 +48,7 @@ function App() {
         <PrivateRoute path="/user" component={UserList} />
         <PrivateRoute path="/info/:name" component={Info} />
         <PrivateRoute path="/transfer" component={Transfer} />
+        <PrivateRoute path="/qrcode/:name" component={Qrcode}/>
         
         <Route path="/explorer" component={Explorer} />
         <Route path="/login" component={Login} />

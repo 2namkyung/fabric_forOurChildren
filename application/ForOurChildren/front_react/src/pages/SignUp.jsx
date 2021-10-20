@@ -67,7 +67,7 @@ export default function Signup({ history }) {
         
         fetch("http://localhost:4000/signup", {
             method: "POST",
-            hedaer: { 'Content-Type': 'application/json' },
+            header: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         })
         .then(console.log(body))

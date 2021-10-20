@@ -9,6 +9,7 @@ import (
 	"webservice/auth"
 	"webservice/explorer"
 	"webservice/login"
+	"webservice/userQR"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -210,6 +211,9 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/logout", login.Logout).Methods("POST")
 	router.HandleFunc("/signup", login.SignUp).Methods("POST")
 	router.HandleFunc("/childInfo/{name}", login.ChildrenInfo).Methods("GET")
+
+	// Info QRCODE
+	router.HandleFunc("/qrcode/{name}", userQR.Qrcode).Methods("GET")
 
 	// Not use FileServer for web --> Use React Library
 	// router.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../front/css/"))))
