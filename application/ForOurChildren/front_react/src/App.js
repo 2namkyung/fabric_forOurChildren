@@ -13,7 +13,6 @@ import Signup from './pages/SignUp';
 import Info from './pages/Info';
 import Transfer from './pages/Transfer';
 import PrivateRoute from './lib/PrivateRoute';
-import UserQR from './components/QrcodePopup';
 
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';

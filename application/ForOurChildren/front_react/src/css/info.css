@@ -19,8 +19,9 @@
 
 .info .info__header .qrcode{
     position: absolute;
-    top:10px;
-    font-size:30px;
+    width:65px;
+    height:65px;
+    top:5px;
     left:800px;
 }
 
