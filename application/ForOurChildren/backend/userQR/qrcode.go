@@ -35,6 +35,8 @@ func Qrcode(w http.ResponseWriter, r *http.Request) {
 
 func GenQR(name string) {
 	err := qrcode.WriteFile("http://localhost:3000/info/"+name, qrcode.Medium, 256, name+".png")
+	// err := qrcode.WriteFile("http://205c-182-208-92-34.ngrok.io/info/"+name, qrcode.Medium, 256, name+".png")
+	// err := qrcode.WriteFile("http://205c-182-208-92-34.ngrok.io/transfer/", qrcode.Medium, 256, name+".png")
 	if err != nil {
 		panic(err)
 	}

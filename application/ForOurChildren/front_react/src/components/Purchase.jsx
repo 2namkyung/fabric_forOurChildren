@@ -8,7 +8,7 @@ import useActions from "../hooks/useActions";
 
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {useCookies} from 'react-cookie';
 import axios from 'axios';
 

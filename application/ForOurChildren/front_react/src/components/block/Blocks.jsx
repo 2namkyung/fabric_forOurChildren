@@ -7,7 +7,7 @@ export default function Blocks() {
 
     // pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [postsPerPage] = useState(10);
 
     useEffect(() => {
         fetch("http://localhost:4000/blocks", {

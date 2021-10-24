@@ -24,7 +24,7 @@ export default function LoginCheck(props) {
             SetIsLogin(false);
             LoginStatus(false);
         }
-    }, [IsLogin]);
+    }, [IsLogin, LoginStatus, cookies.access_token, cookies.name]);
 
     return (
         <div className="loginStatus">
