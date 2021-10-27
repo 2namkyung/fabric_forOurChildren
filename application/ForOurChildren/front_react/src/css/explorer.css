@@ -9,7 +9,6 @@
 
 tbody{
     display: block;
-    height:1200px;
     overflow: auto;
 }
 
@@ -25,11 +24,6 @@ thead, tbody tr{
     white-space: nowrap;
 }
 
-.explorer .pagination{
-    position: relative;
-    left:400px;
-    bottom: 850px;
-}
 
 .blocknum{
     width:100px;

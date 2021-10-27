@@ -210,6 +210,7 @@ func NewHandler() http.Handler {
 	router.HandleFunc("/login", login.LoginCheck).Methods("POST")
 	router.HandleFunc("/logout", login.Logout).Methods("POST")
 	router.HandleFunc("/signup", login.SignUp).Methods("POST")
+	router.HandleFunc("/auth", login.Auth).Methods("POST")
 	router.HandleFunc("/childInfo/{name}", login.ChildrenInfo).Methods("GET")
 
 	// Info QRCODE

@@ -3,10 +3,10 @@ import useIsLogin from "../hooks/useIsLogin";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const IsLogin = useIsLogin();
+    console.log(IsLogin);
 
     function Redirecting(){
         alert("로그인이 필요합니다");
-
         return <Redirect to="/"/>
     }
 

@@ -11,11 +11,7 @@
     white-space: nowrap;
 }
 
-.content .pagination{
-    position: relative;
-    left:550px;
-    bottom: 850px;
-}
+
 
 .content table td .data{
     width:100%;

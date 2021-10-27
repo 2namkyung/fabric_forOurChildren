@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie';
 
 export default function Info() {
 
+    const [result, setResult] = useState([{}]);
     const [view, setView] = useState([]);
     const [info, setInfo] = useState({});
     const [coin, setCoin] = useState();
@@ -11,7 +12,6 @@ export default function Info() {
 
     const [cookies] = useCookies();
     const name = cookies.name;
-    console.log(name);
 
     useEffect(() => {
         fetch("http://localhost:4000/getTransaction/" + name, {
@@ -23,8 +23,10 @@ export default function Info() {
                 const count = jsonData.length > 6 ? 7 : jsonData.length;
                 const obj = JSON.parse(jsonData[0].Value);
                 setCoin(obj.coin);
+                var arr = [];
                 for (let i = 0; i < count; i++) {
                     const obj = JSON.parse(jsonData[i].Value);
+                    arr.push(obj);
                     view.push(
                         <tr key={i}>
                             <td>
@@ -42,7 +44,9 @@ export default function Info() {
                         </tr>
                     )
                 }
+                setResult(arr);
             });
+        
         setView(view);
     }, [view, name]);
 
@@ -64,7 +68,7 @@ export default function Info() {
                 console.log(response.data);
                 setImg(response.data);
             })
-    })
+    },[img]);
 
     return (
         <div className="inner">

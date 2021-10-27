@@ -30,7 +30,7 @@ export default function Transaction() {
 
     return (
         <>
-            <div>
+            <div className="inner">
                 <div className="content">
                     <table>
                         <thead>

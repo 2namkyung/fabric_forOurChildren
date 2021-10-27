@@ -8,7 +8,6 @@ import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <React.StrictMode>
-    
     <IsLoginProvider>
       <CookiesProvider>
         <App />

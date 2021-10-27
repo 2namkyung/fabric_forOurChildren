@@ -99,3 +99,14 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 
 	rd.JSON(w, http.StatusOK, "LOGOUT SUCCESS")
 }
+
+func Auth(w http.ResponseWriter, r *http.Request) {
+
+	_, err := tokenJWT.ExtractTokenMetadata(r)
+	if err != nil {
+		rd.JSON(w, http.StatusOK, "ERROR")
+		return
+	}
+
+	rd.JSON(w, http.StatusOK, "OK")
+}

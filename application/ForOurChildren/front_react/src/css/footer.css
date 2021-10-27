@@ -1,10 +1,10 @@
 footer{
     background-color: #505050;
     border-top: 1px solid #333;
-    
 }
 
 footer .inner{
+    height:100%;
     padding: 40px 0 60px 0;
 }
 
@@ -61,6 +61,8 @@ footer .btn-group .btn:last-child{
 }
 
 footer .info{
+    width:100%;
+    height:150px;
     margin-top: 30px;
     text-align: center;
 }

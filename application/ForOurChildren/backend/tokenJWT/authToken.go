@@ -30,7 +30,6 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 	})
 
 	if err != nil {
-		// fmt.Println("here")
 		return nil, err
 	}
 
@@ -53,20 +52,16 @@ func TokenValid(r *http.Request) error {
 func ExtractTokenMetadata(r *http.Request) (*AccessDetails, error) {
 	token, err := VerifyToken(r)
 	if err != nil {
-		// fmt.Println("verifyToken error")
 		return nil, err
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if ok && token.Valid {
 		accessUUID, ok := claims["access_UUID"].(string)
-		// fmt.Println(ok)
 		if !ok {
-			// fmt.Println("ok error")
 			return nil, err
 		}
 
-		// fmt.Println(claims["user_id"])
 		name := claims["user_id"].(string)
 
 		return &AccessDetails{

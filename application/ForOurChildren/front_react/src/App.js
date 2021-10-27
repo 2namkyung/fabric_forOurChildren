@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {useEffect} from 'react';
 
 import Transaction from './pages/Transaction';
 import TransactionAll from './pages/TransactionAll';
@@ -37,6 +38,7 @@ function App() {
   const GlobalStyles = createGlobalStyle`
     ${reset};
     `;
+
   return (
     <BrowserRouter>
       <GlobalStyles /> {/*css init*/}

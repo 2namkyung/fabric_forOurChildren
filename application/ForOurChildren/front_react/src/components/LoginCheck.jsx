@@ -2,29 +2,28 @@ import { Link } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 import useIsLoginActions from "../hooks/useIsLoginActions";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect} from "react";
+import useIsLogin from "../hooks/useIsLogin";
 
-export default function LoginCheck(props) {
+export default function LoginCheck() {
 
     const [cookies, removeCookie] = useCookies();
     const { LoginStatus } = useIsLoginActions();
 
-    const [IsLogin, SetIsLogin] = useState(props.value);
+    const IsLogin = useIsLogin();
     const [name, SetName] = useState(cookies.name);
 
     const url = "/info/" + name;
+    console.log(IsLogin);
 
     useEffect(()=>{
         if(cookies.access_token !== "undefined" && cookies.access_token !== undefined){
-            SetIsLogin(true);
             LoginStatus(true);
             SetName(cookies.name);
         }else {
-            SetIsLogin(false);
             LoginStatus(false);
         }
-    }, [IsLogin, LoginStatus, cookies.access_token, cookies.name]);
+    }, [IsLogin, LoginStatus]);
 
     return (
         <div className="loginStatus">
@@ -52,7 +51,6 @@ export default function LoginCheck(props) {
             .then(response => {
                 console.log("logout");
                 LoginStatus(false);
-                SetIsLogin(false);
                 removeCookie('access_token');
                 removeCookie('name');
             })
